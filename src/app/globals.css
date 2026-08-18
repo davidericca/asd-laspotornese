@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/*
+ * Palette del sito ASD La Spotornese.
+ * - primary: blu profondo "mare/notte" — intestazioni, sfondi istituzionali
+ * - secondary: acqua/teal — colore principale del brand, link, dettagli
+ * - accent: sabbia/oro caldo — call to action, evidenze
+ * Tutte le scale vanno da 50 (chiarissimo) a 950 (scurissimo).
+ */
+@theme {
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-poppins);
+
+  --color-primary-50: #f0f6fa;
+  --color-primary-100: #dbeaf2;
+  --color-primary-200: #b9d6e6;
+  --color-primary-300: #8ebbd3;
+  --color-primary-400: #5b9abc;
+  --color-primary-500: #3a7ba3;
+  --color-primary-600: #2a5f86;
+  --color-primary-700: #244d6c;
+  --color-primary-800: #1f3f59;
+  --color-primary-900: #1b3049;
+  --color-primary-950: #0f1e30;
+
+  --color-secondary-50: #eefbfa;
+  --color-secondary-100: #d3f4f1;
+  --color-secondary-200: #a9e8e3;
+  --color-secondary-300: #74d5cf;
+  --color-secondary-400: #3fb8b3;
+  --color-secondary-500: #229c98;
+  --color-secondary-600: #187e7d;
+  --color-secondary-700: #166664;
+  --color-secondary-800: #165251;
+  --color-secondary-900: #154544;
+  --color-secondary-950: #072928;
+
+  --color-accent-50: #fdf8ee;
+  --color-accent-100: #f9edd1;
+  --color-accent-200: #f2d89e;
+  --color-accent-300: #e9be67;
+  --color-accent-400: #e0a53e;
+  --color-accent-500: #d38f27;
+  --color-accent-600: #b6721e;
+  --color-accent-700: #92561c;
+  --color-accent-800: #78451c;
+  --color-accent-900: #63391b;
+  --color-accent-950: #391d0d;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #16222c;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+}
+
+/* Stile condiviso per i campi dei form del pannello amministratore */
+@layer components {
+  .input {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-primary-200);
+    padding: 0.55rem 0.85rem;
+    font-size: 0.9rem;
+    color: var(--foreground);
+    background: white;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .input:focus {
+    border-color: var(--color-secondary-500);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-secondary-500) 20%, transparent);
+  }
+}
+
+/* Animazioni leggere, riutilizzabili come classi utility */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+/* Scrollbar sottile per le gallerie orizzontali */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+/* Sfondo "onde" leggero riutilizzabile in sezioni chiare */
+.bg-wave-pattern {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--color-primary-100) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
