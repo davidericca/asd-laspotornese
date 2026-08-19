@@ -1,11 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { fetchWithTimeout } from "@/lib/supabase/fetch-with-timeout";
 
-/**
- * Rinnova la sessione Supabase ad ogni richiesta e protegge le rotte
- * /admin/* dall'accesso di utenti non autenticati (redirect al login).
- * Chiamata dal middleware.ts nella root del progetto.
- */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
@@ -27,6 +23,9 @@ export async function updateSession(request: NextRequest) {
           );
         },
       },
+      global: {
+        fetch: fetchWithTimeout,
+      },
     }
   );
 
@@ -45,10 +44,6 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
-    // Anche se autenticato, l'utente deve essere presente nella tabella
-    // "admins" per poter accedere al pannello (difesa in profondità: le
-    // policy RLS a livello di database bloccano comunque ogni scrittura
-    // non autorizzata, ma qui evitiamo di mostrare l'interfaccia stessa).
     const { data: adminRow } = await supabase
       .from("admins")
       .select("user_id")
