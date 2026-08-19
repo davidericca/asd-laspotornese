@@ -1,12 +1,7 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import { fetchWithTimeout } from "@/lib/supabase/fetch-with-timeout";
 
-/**
- * Client Supabase da usare in Server Component, Server Action e Route
- * Handler. Legge/scrive i cookie di sessione tramite l'API `cookies()` di
- * Next.js, così l'utente amministratore resta autenticato tra una pagina
- * e l'altra.
- */
 export async function createClient() {
   const cookieStore = await cookies();
 
@@ -24,10 +19,11 @@ export async function createClient() {
               cookieStore.set(name, value, options)
             );
           } catch {
-            // setAll può essere chiamato da un Server Component: in quel
-            // caso i cookie vengono comunque aggiornati dal middleware.
           }
         },
+      },
+      global: {
+        fetch: fetchWithTimeout,
       },
     }
   );
