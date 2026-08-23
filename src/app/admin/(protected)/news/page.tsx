@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAdminNews } from "@/lib/data/news";
 import { deleteNews } from "@/actions/news";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 
 export default async function AdminNewsPage() {
   const news = await getAdminNews();
@@ -41,9 +42,9 @@ export default async function AdminNewsPage() {
                 Modifica
               </Link>
               <form action={deleteNews.bind(null, item.id)}>
-                <button type="submit" className="text-red-600 hover:underline dark:text-red-400">
+                <SubmitButton className="text-red-600 hover:underline dark:text-red-400">
                   Elimina
-                </button>
+                </SubmitButton>
               </form>
             </div>
           </li>

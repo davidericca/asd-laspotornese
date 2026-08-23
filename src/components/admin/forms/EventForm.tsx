@@ -1,4 +1,5 @@
 import type { EventRow } from "@/lib/data/events";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 
 const STATUSES: EventRow["status"][] = [
   "programmato",
@@ -87,12 +88,9 @@ export function EventForm({
         />
         Pubblicato
       </label>
-      <button
-        type="submit"
-        className="self-start rounded bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
-      >
+      <SubmitButton className="self-start rounded bg-black px-4 py-2 text-white dark:bg-white dark:text-black">
         Salva
-      </button>
+      </SubmitButton>
     </form>
   );
 }

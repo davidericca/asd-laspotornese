@@ -15,6 +15,11 @@ export default function AdminDashboardPage() {
             Gestisci news
           </Link>
         </li>
+        <li>
+          <Link href="/admin/galleries" className="hover:underline">
+            Gestisci gallerie
+          </Link>
+        </li>
       </ul>
     </div>
   );

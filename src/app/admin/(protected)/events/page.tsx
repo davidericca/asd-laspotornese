@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getAdminEvents } from "@/lib/data/events";
 import { formatDateIt } from "@/lib/utils";
 import { deleteEvent } from "@/actions/events";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 
 export default async function AdminEventsPage() {
   const events = await getAdminEvents();
@@ -42,9 +43,9 @@ export default async function AdminEventsPage() {
                 Modifica
               </Link>
               <form action={deleteEvent.bind(null, event.id)}>
-                <button type="submit" className="text-red-600 hover:underline dark:text-red-400">
+                <SubmitButton className="text-red-600 hover:underline dark:text-red-400">
                   Elimina
-                </button>
+                </SubmitButton>
               </form>
             </div>
           </li>
