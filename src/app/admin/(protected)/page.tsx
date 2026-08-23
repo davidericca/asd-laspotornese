@@ -1,10 +1,16 @@
+import Link from "next/link";
+
 export default function AdminDashboardPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p className="mt-2 text-black/60 dark:text-white/60">
-        [PLACEHOLDER: da qui potrai gestire eventi, news e gallerie]
-      </p>
+      <ul className="mt-6 flex flex-col gap-2">
+        <li>
+          <Link href="/admin/events" className="hover:underline">
+            Gestisci eventi
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 }
