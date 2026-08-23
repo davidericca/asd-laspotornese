@@ -10,6 +10,11 @@ export default function AdminDashboardPage() {
             Gestisci eventi
           </Link>
         </li>
+        <li>
+          <Link href="/admin/news" className="hover:underline">
+            Gestisci news
+          </Link>
+        </li>
       </ul>
     </div>
   );
