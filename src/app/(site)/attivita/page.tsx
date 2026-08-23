@@ -1,10 +1,15 @@
 import { PageHeader } from "@/components/ui/PageHeader";
+import { getPublishedSiteContent } from "@/lib/data/site-content";
 
-export default function AttivitaPage() {
+export const revalidate = 60;
+
+export default async function AttivitaPage() {
+  const content = await getPublishedSiteContent();
+
   return (
     <PageHeader
       title="Attività"
-      description="[INSERIRE elenco delle attività sportive proposte]"
+      description={content.attivita || "[INSERIRE elenco delle attività sportive proposte]"}
     />
   );
 }

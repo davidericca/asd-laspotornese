@@ -1,12 +1,15 @@
 import { PageHeader } from "@/components/ui/PageHeader";
+import { getPublishedSiteContent } from "@/lib/data/site-content";
 
-export default function ChiSiamoPage() {
+export const revalidate = 60;
+
+export default async function ChiSiamoPage() {
+  const content = await getPublishedSiteContent();
+
   return (
-    <>
-      <PageHeader
-        title="Chi siamo"
-        description="[INSERIRE storia e valori dell'associazione]"
-      />
-    </>
+    <PageHeader
+      title="Chi siamo"
+      description={content.chi_siamo || "[INSERIRE storia e valori dell'associazione]"}
+    />
   );
 }

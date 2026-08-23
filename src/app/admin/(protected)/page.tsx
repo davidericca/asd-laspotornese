@@ -20,6 +20,11 @@ export default function AdminDashboardPage() {
             Gestisci gallerie
           </Link>
         </li>
+        <li>
+          <Link href="/admin/content" className="hover:underline">
+            Modifica testi del sito
+          </Link>
+        </li>
       </ul>
     </div>
   );
