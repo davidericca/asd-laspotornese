@@ -6,7 +6,7 @@ import { fetchWithTimeout } from "./fetch-with-timeout";
 // Vedi sezione 6 della guida.
 export const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   {
     auth: { persistSession: false },
     global: { fetch: fetchWithTimeout },
