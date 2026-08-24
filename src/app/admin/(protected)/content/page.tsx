@@ -11,6 +11,9 @@ export default async function AdminContentPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold">Testi del sito</h1>
+      <p className="mt-2 max-w-lg text-sm text-black/60 dark:text-white/60">
+        Le attività ora si gestiscono da &quot;Gestisci attività&quot; nella dashboard, una scheda per volta.
+      </p>
       <form action={updateSiteContent} className="mt-6 flex max-w-lg flex-col gap-6">
         <label className="flex flex-col gap-1 text-sm">
           Home &mdash; presentazione
@@ -27,15 +30,6 @@ export default async function AdminContentPage() {
             name="chi_siamo"
             rows={6}
             defaultValue={content.chi_siamo}
-            className={fieldClass}
-          />
-        </label>
-        <label className="flex flex-col gap-1 text-sm">
-          Attività
-          <textarea
-            name="attivita"
-            rows={6}
-            defaultValue={content.attivita}
             className={fieldClass}
           />
         </label>

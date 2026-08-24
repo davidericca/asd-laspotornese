@@ -6,6 +6,11 @@ export default function AdminDashboardPage() {
       <h1 className="text-2xl font-bold">Dashboard</h1>
       <ul className="mt-6 flex flex-col gap-2">
         <li>
+          <Link href="/admin/activities" className="hover:underline">
+            Gestisci attività
+          </Link>
+        </li>
+        <li>
           <Link href="/admin/events" className="hover:underline">
             Gestisci eventi
           </Link>
