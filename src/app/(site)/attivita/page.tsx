@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedActivities } from "@/lib/data/activities";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Attività",
+  description: "Le attività proposte dall'ASD La Spotornese.",
+};
 
 export default async function AttivitaPage() {
   const activities = await getPublishedActivities();

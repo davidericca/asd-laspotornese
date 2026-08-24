@@ -1,9 +1,23 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedNewsBySlug } from "@/lib/data/news";
 import { getPublishedAttachments } from "@/lib/data/attachments";
 import { formatDateIt } from "@/lib/utils";
 
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/news/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const item = await getPublishedNewsBySlug(slug);
+
+  return {
+    title: item.title,
+    description: item.body.slice(0, 160),
+    openGraph: item.cover_image_url ? { images: [item.cover_image_url] } : undefined,
+  };
+}
 
 export default async function NewsDetailPage({
   params,

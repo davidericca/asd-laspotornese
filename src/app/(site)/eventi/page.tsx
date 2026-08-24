@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedEvents } from "@/lib/data/events";
 import { formatDateIt } from "@/lib/utils";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Eventi",
+  description: "Calendario di eventi e gare dell'ASD La Spotornese.",
+};
 
 export default async function EventiPage() {
   const events = await getPublishedEvents();

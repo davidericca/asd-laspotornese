@@ -13,8 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ASD La Spotornese",
+  metadataBase: new URL("https://asd-laspotornese.vercel.app"),
+  title: {
+    default: "ASD La Spotornese",
+    template: "%s · ASD La Spotornese",
+  },
   description: "Sito ufficiale dell'ASD La Spotornese",
+  openGraph: {
+    siteName: "ASD La Spotornese",
+    locale: "it_IT",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

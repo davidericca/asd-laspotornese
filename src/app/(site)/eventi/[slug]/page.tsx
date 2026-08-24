@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedEventBySlug } from "@/lib/data/events";
 import { getPublishedAttachments } from "@/lib/data/attachments";
@@ -5,6 +6,19 @@ import { getPublishedGalleryWithImages } from "@/lib/data/galleries";
 import { formatDateIt } from "@/lib/utils";
 
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/eventi/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const event = await getPublishedEventBySlug(slug);
+
+  return {
+    title: event.title,
+    description: event.description ?? `Evento del ${formatDateIt(event.event_date)}`,
+    openGraph: event.cover_image_url ? { images: [event.cover_image_url] } : undefined,
+  };
+}
 
 export default async function EventDetailPage({
   params,

@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedGalleries } from "@/lib/data/galleries";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Galleria",
+  description: "Foto delle attività dell'ASD La Spotornese.",
+};
 
 export default async function GalleriaPage() {
   const galleries = await getPublishedGalleries();

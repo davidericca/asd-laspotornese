@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedNews } from "@/lib/data/news";
 import { formatDateIt } from "@/lib/utils";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "News",
+  description: "Comunicazioni e novità dall'ASD La Spotornese.",
+};
 
 export default async function NewsPage() {
   const news = await getPublishedNews();

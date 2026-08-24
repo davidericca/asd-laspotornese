@@ -1,7 +1,21 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedGalleryWithImages } from "@/lib/data/galleries";
 
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/galleria/[id]">): Promise<Metadata> {
+  const { id } = await params;
+  const { gallery } = await getPublishedGalleryWithImages(id);
+
+  return {
+    title: gallery.title,
+    description: gallery.description ?? undefined,
+    openGraph: gallery.cover_image_url ? { images: [gallery.cover_image_url] } : undefined,
+  };
+}
 
 export default async function GalleryDetailPage({
   params,

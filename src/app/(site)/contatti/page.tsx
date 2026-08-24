@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Contatti",
+  description: "Come contattare l'ASD La Spotornese.",
+};
 
 export default async function ContattiPage() {
   const content = await getPublishedSiteContent();
