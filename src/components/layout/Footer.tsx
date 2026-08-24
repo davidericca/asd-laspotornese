@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
@@ -20,23 +19,10 @@ export async function Footer() {
 
   return (
     <footer className="border-t border-border bg-muted">
-      <div className="mx-auto max-w-5xl px-6 py-14">
-        <div className="grid gap-10 sm:grid-cols-3">
+      <div className="mx-auto max-w-5xl px-6 py-10">
+        <div className="grid gap-8 sm:grid-cols-3">
           <div>
-            <div className="flex items-center gap-3">
-              <Image
-                src="/stemma.png"
-                alt=""
-                aria-hidden="true"
-                width={36}
-                height={36}
-                className="h-9 w-9"
-              />
-              <span className="font-heading font-semibold text-foreground">
-                ASD La Spotornese
-              </span>
-            </div>
-            <p className="mt-3 text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Società di pesca sportiva con sede a Spotorno.
             </p>
           </div>
@@ -45,7 +31,7 @@ export async function Footer() {
             <h2 className="font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
               Il sito
             </h2>
-            <ul className="mt-3 flex flex-col gap-2 text-sm">
+            <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
               {links.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-foreground hover:underline">
@@ -90,7 +76,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <p className="mt-12 border-t border-border pt-6 text-sm text-muted-foreground">
+        <p className="mt-8 border-t border-border pt-5 text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} ASD La Spotornese. Tutti i diritti riservati.
         </p>
       </div>

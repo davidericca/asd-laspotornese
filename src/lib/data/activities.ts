@@ -7,6 +7,7 @@ export type ActivityRow = {
   description: string | null;
   position: number;
   published: boolean;
+  cover_image_url: string | null;
 };
 
 export async function getPublishedActivities() {

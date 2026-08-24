@@ -29,6 +29,15 @@ export function ActivityForm({
           className="rounded border border-border bg-transparent px-3 py-2"
         />
       </label>
+      <label className="flex flex-col gap-1 text-sm">
+        Foto (opzionale)
+        <input type="file" name="cover_image" accept="image/*" />
+      </label>
+      {defaultValues?.cover_image_url && (
+        <p className="text-xs text-muted-foreground">
+          È già presente una foto. Caricandone una nuova la sostituirai.
+        </p>
+      )}
       <label className="flex items-center gap-2 text-sm">
         <input
           type="checkbox"

@@ -1,5 +1,5 @@
 import { getAdminSiteContent } from "@/lib/data/site-content";
-import { updateSiteContent } from "@/actions/site-content";
+import { updateSiteContent, updateHeroImage } from "@/actions/site-content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 
 const fieldClass =
@@ -14,7 +14,21 @@ export default async function AdminContentPage() {
       <p className="mt-2 max-w-lg text-sm text-muted-foreground">
         Le attività ora si gestiscono da &quot;Gestisci attività&quot; nella dashboard, una scheda per volta.
       </p>
-      <form action={updateSiteContent} className="mt-6 flex max-w-lg flex-col gap-6">
+      <form action={updateHeroImage} className="mt-6 flex max-w-lg flex-col gap-3">
+        <label className="flex flex-col gap-1 text-sm">
+          Home &mdash; foto di copertina
+          <input type="file" name="hero_image" accept="image/*" className="text-sm" />
+        </label>
+        {content.home_hero_image_url && (
+          <p className="text-xs text-muted-foreground">
+            È già presente una foto di copertina. Caricandone una nuova la sostituirai.
+          </p>
+        )}
+        <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
+          Carica foto
+        </SubmitButton>
+      </form>
+      <form action={updateSiteContent} className="mt-10 flex max-w-lg flex-col gap-6">
         <label className="flex flex-col gap-1 text-sm">
           Home &mdash; presentazione
           <textarea

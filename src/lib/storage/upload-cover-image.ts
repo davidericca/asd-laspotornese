@@ -4,7 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 export async function uploadCoverImage(
   supabase: SupabaseClient,
-  folder: "events" | "news",
+  folder: "events" | "news" | "activities" | "site",
   id: string,
   file: File,
 ): Promise<string> {
