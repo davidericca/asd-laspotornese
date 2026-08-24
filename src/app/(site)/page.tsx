@@ -94,51 +94,55 @@ export default async function HomePage() {
       {/* Prossimo evento + news */}
       <div className="mx-auto max-w-5xl px-6 py-12">
         <div className="grid gap-8 md:grid-cols-3">
-          <section className="md:col-span-2">
+          <section className="flex flex-col md:col-span-2">
             <h2 className="font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
               Prossimo evento
             </h2>
-            {nextEvent ? (
-              <EventPreviewCard event={nextEvent} />
-            ) : (
-              <p className={`mt-4 p-6 text-sm text-muted-foreground ${cardClass}`}>
-                Nessun evento in programma al momento.
-              </p>
-            )}
+            <div className="flex-1">
+              {nextEvent ? (
+                <EventPreviewCard event={nextEvent} />
+              ) : (
+                <p className={`mt-4 p-6 text-sm text-muted-foreground ${cardClass}`}>
+                  Nessun evento in programma al momento.
+                </p>
+              )}
+            </div>
             <Link href="/eventi" className="mt-4 inline-block text-sm font-medium text-primary hover:underline">
               Vedi tutti gli eventi →
             </Link>
           </section>
 
-          <section>
+          <section className="flex flex-col">
             <h2 className="font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
               Ultime news
             </h2>
-            {latestNews.length > 0 ? (
-              <div className="mt-4">
-                {featuredNews.cover_image_url && <FeaturedNewsCard item={featuredNews} />}
-                {listedNews.length > 0 && (
-                  <ul className="flex flex-col divide-y divide-border border-t border-border">
-                    {listedNews.map((item) => (
-                      <li key={item.id} className="py-3">
-                        <Link href={`/news/${item.slug}`} className="text-card-foreground hover:underline">
-                          {item.title}
-                        </Link>
-                        {item.featured && (
-                          <span className="ml-2 text-xs font-semibold tracking-wide text-accent uppercase">
-                            In evidenza
-                          </span>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ) : (
-              <p className="mt-4 text-sm text-muted-foreground">
-                Nessuna comunicazione al momento.
-              </p>
-            )}
+            <div className="flex-1">
+              {latestNews.length > 0 ? (
+                <div className="mt-4">
+                  {featuredNews.cover_image_url && <FeaturedNewsCard item={featuredNews} />}
+                  {listedNews.length > 0 && (
+                    <ul className="flex flex-col divide-y divide-border border-t border-border">
+                      {listedNews.map((item) => (
+                        <li key={item.id} className="py-3">
+                          <Link href={`/news/${item.slug}`} className="text-card-foreground hover:underline">
+                            {item.title}
+                          </Link>
+                          {item.featured && (
+                            <span className="ml-2 text-xs font-semibold tracking-wide text-accent uppercase">
+                              In evidenza
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Nessuna comunicazione al momento.
+                </p>
+              )}
+            </div>
             <Link href="/news" className="mt-4 inline-block text-sm font-medium text-primary hover:underline">
               Vedi tutte le news →
             </Link>
