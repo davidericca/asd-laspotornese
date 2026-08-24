@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedGalleryWithImages } from "@/lib/data/galleries";
 
@@ -8,12 +9,13 @@ export async function generateMetadata({
   params,
 }: PageProps<"/galleria/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const { gallery } = await getPublishedGalleryWithImages(id);
+  const data = await getPublishedGalleryWithImages(id);
+  if (!data) return {};
 
   return {
-    title: gallery.title,
-    description: gallery.description ?? undefined,
-    openGraph: gallery.cover_image_url ? { images: [gallery.cover_image_url] } : undefined,
+    title: data.gallery.title,
+    description: data.gallery.description ?? undefined,
+    openGraph: data.gallery.cover_image_url ? { images: [data.gallery.cover_image_url] } : undefined,
   };
 }
 
@@ -21,7 +23,9 @@ export default async function GalleryDetailPage({
   params,
 }: PageProps<"/galleria/[id]">) {
   const { id } = await params;
-  const { gallery, images } = await getPublishedGalleryWithImages(id);
+  const data = await getPublishedGalleryWithImages(id);
+  if (!data) notFound();
+  const { gallery, images } = data;
 
   return (
     <>

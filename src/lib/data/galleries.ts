@@ -31,8 +31,9 @@ export async function getPublishedGalleryWithImages(id: string) {
     .from("galleries")
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
   if (galleryError) throw galleryError;
+  if (!gallery) return null;
 
   const { data: images, error: imagesError } = await supabasePublic
     .from("images")

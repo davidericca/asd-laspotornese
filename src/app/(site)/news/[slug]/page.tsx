@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedNewsBySlug } from "@/lib/data/news";
 import { getPublishedAttachments } from "@/lib/data/attachments";
@@ -11,6 +12,7 @@ export async function generateMetadata({
 }: PageProps<"/news/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const item = await getPublishedNewsBySlug(slug);
+  if (!item) return {};
 
   return {
     title: item.title,
@@ -24,6 +26,7 @@ export default async function NewsDetailPage({
 }: PageProps<"/news/[slug]">) {
   const { slug } = await params;
   const item = await getPublishedNewsBySlug(slug);
+  if (!item) notFound();
   const attachments = await getPublishedAttachments("news", item.id);
 
   return (

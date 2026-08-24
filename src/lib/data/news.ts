@@ -29,10 +29,10 @@ export async function getPublishedNewsBySlug(slug: string) {
     .select("*")
     .eq("slug", slug)
     .eq("published", true)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
-  return data as NewsRow;
+  return data as NewsRow | null;
 }
 
 export async function getLatestNews(limit: number) {

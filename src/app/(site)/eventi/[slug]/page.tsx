@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedEventBySlug } from "@/lib/data/events";
 import { getPublishedAttachments } from "@/lib/data/attachments";
@@ -12,6 +13,7 @@ export async function generateMetadata({
 }: PageProps<"/eventi/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const event = await getPublishedEventBySlug(slug);
+  if (!event) return {};
 
   return {
     title: event.title,
@@ -25,6 +27,7 @@ export default async function EventDetailPage({
 }: PageProps<"/eventi/[slug]">) {
   const { slug } = await params;
   const event = await getPublishedEventBySlug(slug);
+  if (!event) notFound();
   const [attachments, galleryData] = await Promise.all([
     getPublishedAttachments("event", event.id),
     event.gallery_id ? getPublishedGalleryWithImages(event.gallery_id) : null,

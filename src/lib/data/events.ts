@@ -32,10 +32,10 @@ export async function getPublishedEventBySlug(slug: string) {
     .select("*")
     .eq("slug", slug)
     .eq("published", true)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
-  return data as EventRow;
+  return data as EventRow | null;
 }
 
 export async function getNextUpcomingEvent() {
