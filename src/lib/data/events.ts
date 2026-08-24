@@ -38,6 +38,21 @@ export async function getPublishedEventBySlug(slug: string) {
   return data as EventRow;
 }
 
+export async function getNextUpcomingEvent() {
+  const today = new Date().toISOString().slice(0, 10);
+  const { data, error } = await supabasePublic
+    .from("events")
+    .select("*")
+    .eq("published", true)
+    .gte("event_date", today)
+    .order("event_date", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data as EventRow | null;
+}
+
 export async function getAdminEvents() {
   const supabase = await getServerSupabase();
   const { data, error } = await supabase

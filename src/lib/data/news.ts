@@ -35,6 +35,18 @@ export async function getPublishedNewsBySlug(slug: string) {
   return data as NewsRow;
 }
 
+export async function getLatestNews(limit: number) {
+  const { data, error } = await supabasePublic
+    .from("news")
+    .select("*")
+    .eq("published", true)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) throw error;
+  return data as NewsRow[];
+}
+
 export async function getAdminNews() {
   const supabase = await getServerSupabase();
   const { data, error } = await supabase
