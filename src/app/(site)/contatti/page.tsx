@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
+import { cardClass } from "@/lib/ui";
 
 export const revalidate = 60;
 
@@ -16,9 +17,9 @@ export default async function ContattiPage() {
 
   return (
     <>
-      <PageHeader title="Contatti" />
-      <div className="mx-auto max-w-5xl px-6 pb-16">
-        <dl className="flex flex-col gap-3 rounded-lg border border-border bg-card p-6 text-sm shadow-sm sm:max-w-sm">
+      <PageHeader title="Contatti" description="Come contattare l'associazione." />
+      <div className="mx-auto max-w-5xl px-6 py-16">
+        <dl className={`flex flex-col gap-4 p-7 text-sm sm:max-w-sm ${cardClass}`}>
           {content.contatti_indirizzo && (
             <div>
               <dt className="flex items-center gap-1.5 text-muted-foreground">

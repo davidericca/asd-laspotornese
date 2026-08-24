@@ -30,19 +30,23 @@ export default async function GalleryDetailPage({
   return (
     <>
       <PageHeader title={gallery.title} description={gallery.description ?? undefined} />
-      <div className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+      <div className="mx-auto max-w-5xl px-6 py-16">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
           {images.map((image) => (
-            <div
-              key={image.id}
-              className="aspect-square w-full overflow-hidden rounded-lg border border-border bg-muted"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={image.url}
-                alt={image.alt_text ?? ""}
-                className="h-full w-full object-contain"
-              />
+            <div key={image.id}>
+              <div className="aspect-square w-full overflow-hidden border border-border bg-muted">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={image.url}
+                  alt={image.alt_text ?? ""}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              {image.alt_text && (
+                <p className="mt-1 font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
+                  {image.alt_text}
+                </p>
+              )}
             </div>
           ))}
         </div>

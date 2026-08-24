@@ -1,18 +1,29 @@
 export function PageHeader({
   title,
   description,
+  eyebrow,
 }: {
   title: string;
   description?: string;
+  eyebrow?: string;
 }) {
   return (
-    <div className="mx-auto max-w-5xl px-6 pt-12 pb-8">
-      <h1 className="font-heading text-3xl font-semibold">{title}</h1>
-      {description && (
-        <p className="mt-2 whitespace-pre-line text-muted-foreground">
-          {description}
-        </p>
-      )}
+    <div className="bg-primary text-primary-foreground">
+      <div className="mx-auto max-w-5xl px-6 py-12 sm:py-16">
+        {eyebrow && (
+          <p className="font-mono text-xs font-bold tracking-widest text-accent uppercase">
+            {eyebrow}
+          </p>
+        )}
+        <h1 className={`font-heading text-3xl font-bold sm:text-4xl ${eyebrow ? "mt-2" : ""}`}>
+          {title}
+        </h1>
+        {description && (
+          <p className="mt-3 max-w-2xl whitespace-pre-line text-primary-foreground/80">
+            {description}
+          </p>
+        )}
+      </div>
     </div>
   );
 }

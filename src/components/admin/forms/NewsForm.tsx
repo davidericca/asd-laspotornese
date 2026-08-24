@@ -40,6 +40,15 @@ export function NewsForm({
         />
         In evidenza
       </label>
+      <label className="flex flex-col gap-1 text-sm">
+        Foto di copertina (opzionale)
+        <input type="file" name="cover_image" accept="image/*" />
+      </label>
+      {defaultValues?.cover_image_url && (
+        <p className="text-xs text-muted-foreground">
+          È già presente una foto di copertina. Caricandone una nuova la sostituirai.
+        </p>
+      )}
       {showAttachmentField && (
         <label className="flex flex-col gap-1 text-sm">
           Allegato PDF (opzionale)

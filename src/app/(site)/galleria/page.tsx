@@ -15,26 +15,32 @@ export default async function GalleriaPage() {
 
   return (
     <>
-      <PageHeader title="Galleria" description="Foto delle nostre attività." />
-      <div className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3">
+      <PageHeader
+        title="Galleria"
+        eyebrow="Fotografie"
+        description="Sfoglia le gallerie delle nostre uscite, gare e manifestazioni."
+      />
+      <div className="mx-auto max-w-5xl px-6 py-16">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
           {galleries.map((gallery) => (
             <Link
               key={gallery.id}
               href={`/galleria/${gallery.id}`}
               className="group"
             >
-              <div className="aspect-square overflow-hidden rounded-lg border border-border bg-muted">
+              <div className="aspect-square overflow-hidden border border-border bg-muted">
                 {gallery.cover_image_url && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={gallery.cover_image_url}
                     alt={gallery.title}
-                    className="h-full w-full object-contain transition group-hover:scale-105"
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                   />
                 )}
               </div>
-              <p className="mt-2 text-sm font-medium text-foreground">{gallery.title}</p>
+              <p className="mt-2 font-mono text-xs tracking-widest text-muted-foreground uppercase">
+                {gallery.title}
+              </p>
             </Link>
           ))}
         </div>

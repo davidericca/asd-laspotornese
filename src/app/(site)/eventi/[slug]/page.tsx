@@ -38,7 +38,7 @@ export default async function EventDetailPage({
   return (
     <>
       <PageHeader title={event.title} />
-      <div className="mx-auto max-w-5xl px-6 pb-16">
+      <div className="mx-auto max-w-5xl px-6 py-16">
         <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-1">
             <CalendarBlank size={16} aria-hidden="true" />
@@ -80,16 +80,20 @@ export default async function EventDetailPage({
             <h2 className="font-heading text-sm font-semibold">Foto</h2>
             <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
               {galleryData.images.map((image) => (
-                <div
-                  key={image.id}
-                  className="aspect-square w-full overflow-hidden rounded-lg border border-border bg-muted"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={image.url}
-                    alt={image.alt_text ?? ""}
-                    className="h-full w-full object-contain"
-                  />
+                <div key={image.id}>
+                  <div className="aspect-square w-full overflow-hidden border border-border bg-muted">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={image.url}
+                      alt={image.alt_text ?? ""}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  {image.alt_text && (
+                    <p className="mt-1 font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
+                      {image.alt_text}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>

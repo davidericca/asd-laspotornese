@@ -1,5 +1,5 @@
 import { CalendarBlank, CheckCircle, Pulse, XCircle } from "@phosphor-icons/react/ssr";
-import type { EventRow } from "@/lib/data/events";
+import type { EventRow } from "@/lib/event-status";
 
 const STATUS_CONFIG: Record<
   EventRow["status"],

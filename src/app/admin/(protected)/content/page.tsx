@@ -34,6 +34,15 @@ export default async function AdminContentPage() {
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
+          Codice Fiscale / P.IVA
+          <input
+            type="text"
+            name="cf_piva"
+            defaultValue={content.cf_piva}
+            className={fieldClass}
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm">
           Contatti &mdash; indirizzo
           <input
             type="text"

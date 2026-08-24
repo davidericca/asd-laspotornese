@@ -32,7 +32,7 @@ export default async function NewsDetailPage({
   return (
     <>
       <PageHeader title={item.title} description={formatDateIt(item.created_at)} />
-      <div className="mx-auto max-w-5xl px-6 pb-16">
+      <div className="mx-auto max-w-5xl px-6 py-16">
         <p className="whitespace-pre-line text-sm">{item.body}</p>
 
         {attachments.length > 0 && (
