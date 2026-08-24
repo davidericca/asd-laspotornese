@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { NewsForm } from "@/components/admin/forms/NewsForm";
 import { AttachmentsSection } from "@/components/admin/forms/AttachmentsSection";
 import { getAdminNewsById } from "@/lib/data/news";
@@ -16,10 +15,7 @@ export default async function EditNewsPage({
 
   return (
     <div>
-      <Link href="/admin/news" className="text-sm text-muted-foreground hover:underline">
-        ← Torna alle news
-      </Link>
-      <h1 className="mt-2 font-heading text-2xl font-bold">Modifica news</h1>
+      <h1 className="font-heading text-2xl font-bold">Modifica news</h1>
       <div className="mt-6">
         <NewsForm action={updateNews.bind(null, id)} defaultValues={item} />
       </div>

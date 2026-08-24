@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { logout } from "@/actions/auth";
 import { getServerSupabase } from "@/lib/supabase/server";
+import { AdminNav } from "@/components/admin/AdminNav";
 
 export default async function ProtectedAdminLayout({
   children,
@@ -27,6 +28,7 @@ export default async function ProtectedAdminLayout({
           </form>
         </div>
       </header>
+      <AdminNav />
       <main className="mx-auto max-w-3xl px-6 py-8">{children}</main>
     </div>
   );
