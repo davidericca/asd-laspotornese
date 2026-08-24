@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { logout } from "@/actions/auth";
 import { getServerSupabase } from "@/lib/supabase/server";
 
@@ -12,7 +13,9 @@ export default async function ProtectedAdminLayout({
   return (
     <div className="min-h-screen">
       <header className="flex items-center justify-between border-b border-border bg-primary px-6 py-4 text-primary-foreground">
-        <span className="font-heading font-semibold">Pannello admin</span>
+        <Link href="/admin" className="font-heading font-semibold hover:underline">
+          Pannello admin
+        </Link>
         <div className="flex items-center gap-4 text-sm">
           <span className="text-primary-foreground/80">
             {user?.email}

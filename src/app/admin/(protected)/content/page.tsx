@@ -1,6 +1,7 @@
 import { getAdminSiteContent } from "@/lib/data/site-content";
 import { updateSiteContent, updateHeroImage } from "@/actions/site-content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { fileInputClass } from "@/lib/ui";
 
 const fieldClass =
   "rounded border border-border bg-transparent px-3 py-2";
@@ -15,14 +16,25 @@ export default async function AdminContentPage() {
         Le attività ora si gestiscono da &quot;Gestisci attività&quot; nella dashboard, una scheda per volta.
       </p>
       <form action={updateHeroImage} className="mt-6 flex max-w-lg flex-col gap-3">
-        <label className="flex flex-col gap-1 text-sm">
+        <label className="flex flex-col gap-2 text-sm">
           Home &mdash; foto di copertina
-          <input type="file" name="hero_image" accept="image/*" className="text-sm" />
+          <input type="file" name="hero_image" accept="image/*" className={fileInputClass} />
         </label>
+        <p className="-mt-2 text-xs text-muted-foreground">
+          Scegli il file, poi premi &quot;Carica foto&quot; qui sotto: solo allora viene caricato davvero.
+        </p>
         {content.home_hero_image_url && (
-          <p className="text-xs text-muted-foreground">
-            È già presente una foto di copertina. Caricandone una nuova la sostituirai.
-          </p>
+          <div className="flex items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={content.home_hero_image_url}
+              alt=""
+              className="h-16 w-28 shrink-0 object-cover"
+            />
+            <p className="text-xs text-muted-foreground">
+              Foto attuale. Caricandone una nuova la sostituirai.
+            </p>
+          </div>
         )}
         <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
           Carica foto

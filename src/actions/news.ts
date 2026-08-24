@@ -49,7 +49,7 @@ export async function createNews(formData: FormData) {
 
   revalidatePath("/news");
   revalidatePath("/");
-  redirect("/admin/news");
+  redirect(`/admin/news/${data.id}`);
 }
 
 export async function updateNews(id: string, formData: FormData) {
@@ -64,7 +64,7 @@ export async function updateNews(id: string, formData: FormData) {
   revalidatePath("/news");
   revalidatePath(`/news/${fields.slug}`);
   revalidatePath("/");
-  redirect("/admin/news");
+  redirect(`/admin/news/${id}`);
 }
 
 export async function deleteNews(id: string) {

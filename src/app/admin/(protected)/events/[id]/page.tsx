@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { EventForm } from "@/components/admin/forms/EventForm";
 import { AttachmentsSection } from "@/components/admin/forms/AttachmentsSection";
 import { getAdminEventById } from "@/lib/data/events";
@@ -17,7 +18,10 @@ export default async function EditEventPage({
 
   return (
     <div>
-      <h1 className="font-heading text-2xl font-bold">Modifica evento</h1>
+      <Link href="/admin/events" className="text-sm text-muted-foreground hover:underline">
+        ← Torna agli eventi
+      </Link>
+      <h1 className="mt-2 font-heading text-2xl font-bold">Modifica evento</h1>
       <div className="mt-6">
         <EventForm action={updateEvent.bind(null, id)} defaultValues={event} galleries={galleries} />
       </div>

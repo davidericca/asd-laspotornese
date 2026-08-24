@@ -1,6 +1,7 @@
 import type { AttachmentRow } from "@/lib/data/attachments";
 import { uploadAttachment, deleteAttachment } from "@/actions/attachments";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { fileInputClass } from "@/lib/ui";
 
 export function AttachmentsSection({
   parent,
@@ -44,9 +45,9 @@ export function AttachmentsSection({
       </ul>
       <form
         action={uploadAttachment.bind(null, parent, parentId, revalidateTarget)}
-        className="mt-3 flex items-center gap-3"
+        className="mt-3 flex flex-wrap items-center gap-3"
       >
-        <input type="file" name="file" accept="application/pdf" required />
+        <input type="file" name="file" accept="application/pdf" required className={fileInputClass} />
         <SubmitButton className="rounded-xs bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
           Carica PDF
         </SubmitButton>

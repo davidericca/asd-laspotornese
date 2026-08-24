@@ -44,7 +44,7 @@ export async function createActivity(formData: FormData) {
 
   revalidatePath("/attivita");
   revalidatePath("/");
-  redirect("/admin/activities");
+  redirect(`/admin/activities/${data.id}`);
 }
 
 export async function updateActivity(id: string, formData: FormData) {
@@ -58,7 +58,7 @@ export async function updateActivity(id: string, formData: FormData) {
 
   revalidatePath("/attivita");
   revalidatePath("/");
-  redirect("/admin/activities");
+  redirect(`/admin/activities/${id}`);
 }
 
 export async function deleteActivity(id: string) {

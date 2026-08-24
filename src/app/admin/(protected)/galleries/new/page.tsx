@@ -1,5 +1,6 @@
 import { createGallery } from "@/actions/galleries";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { fileInputClass } from "@/lib/ui";
 
 export default function NewGalleryPage() {
   return (
@@ -23,9 +24,9 @@ export default function NewGalleryPage() {
             className="rounded border border-border bg-transparent px-3 py-2"
           />
         </label>
-        <label className="flex flex-col gap-1 text-sm">
+        <label className="flex flex-col gap-2 text-sm">
           Foto
-          <input type="file" name="images" accept="image/*" multiple />
+          <input type="file" name="images" accept="image/*" multiple className={fileInputClass} />
         </label>
         <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
           Crea galleria
