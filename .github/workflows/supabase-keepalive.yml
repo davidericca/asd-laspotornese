@@ -1,0 +1,21 @@
+name: Supabase keepalive
+
+# Il piano gratuito Supabase va in pausa automatica dopo 7 giorni senza
+# richieste. Questa piccola lettura ogni 3 giorni tiene il progetto
+# sveglio. La chiave usata qui e' quella "publishable", pensata per
+# essere pubblica (e' la stessa gia' visibile nel codice del sito).
+on:
+  schedule:
+    - cron: "0 6 */3 * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          curl -sf \
+            "https://gshveukvqrpaarncviop.supabase.co/rest/v1/site_content?select=key&limit=1" \
+            -H "apikey: sb_publishable_urcPSspANw1kQSoqyymeZA_1jr_ZZLi" \
+            -H "Authorization: Bearer sb_publishable_urcPSspANw1kQSoqyymeZA_1jr_ZZLi"
