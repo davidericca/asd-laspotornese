@@ -3,7 +3,7 @@ import { updateSiteContent } from "@/actions/site-content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 
 const fieldClass =
-  "rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20";
+  "rounded border border-border bg-transparent px-3 py-2";
 
 export default async function AdminContentPage() {
   const content = await getAdminSiteContent();
@@ -11,7 +11,7 @@ export default async function AdminContentPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold">Testi del sito</h1>
-      <p className="mt-2 max-w-lg text-sm text-black/60 dark:text-white/60">
+      <p className="mt-2 max-w-lg text-sm text-muted-foreground">
         Le attività ora si gestiscono da &quot;Gestisci attività&quot; nella dashboard, una scheda per volta.
       </p>
       <form action={updateSiteContent} className="mt-6 flex max-w-lg flex-col gap-6">
@@ -60,7 +60,7 @@ export default async function AdminContentPage() {
             className={fieldClass}
           />
         </label>
-        <SubmitButton className="self-start rounded bg-black px-4 py-2 text-white dark:bg-white dark:text-black">
+        <SubmitButton className="self-start rounded bg-primary px-4 py-2 text-primary-foreground">
           Salva
         </SubmitButton>
       </form>

@@ -35,7 +35,7 @@ export default async function GalleryDetailPage({
           {images.map((image) => (
             <div
               key={image.id}
-              className="aspect-square w-full overflow-hidden rounded bg-black/5 dark:bg-white/5"
+              className="aspect-square w-full overflow-hidden rounded-lg border border-border bg-muted"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -47,7 +47,7 @@ export default async function GalleryDetailPage({
           ))}
         </div>
         {images.length === 0 && (
-          <p className="text-black/60 dark:text-white/60">
+          <p className="text-muted-foreground">
             Nessuna foto in questa galleria.
           </p>
         )}

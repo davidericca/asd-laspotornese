@@ -13,13 +13,13 @@ export default async function AdminEventsPage() {
         <h1 className="text-2xl font-bold">Eventi</h1>
         <Link
           href="/admin/events/new"
-          className="rounded bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black"
+          className="rounded bg-primary px-4 py-2 text-sm text-primary-foreground"
         >
           Nuovo evento
         </Link>
       </div>
 
-      <ul className="mt-6 divide-y divide-black/10 dark:divide-white/10">
+      <ul className="mt-6 divide-y divide-border">
         {events.map((event) => (
           <li
             key={event.id}
@@ -29,12 +29,12 @@ export default async function AdminEventsPage() {
               <p className="font-medium">
                 {event.title}{" "}
                 {!event.published && (
-                  <span className="text-xs text-black/40 dark:text-white/40">
+                  <span className="text-xs text-muted-foreground">
                     (bozza)
                   </span>
                 )}
               </p>
-              <p className="text-sm text-black/60 dark:text-white/60">
+              <p className="text-sm text-muted-foreground">
                 {formatDateIt(event.event_date)} &middot; {event.status}
               </p>
             </div>
@@ -51,7 +51,7 @@ export default async function AdminEventsPage() {
           </li>
         ))}
         {events.length === 0 && (
-          <li className="py-3 text-black/60 dark:text-white/60">
+          <li className="py-3 text-muted-foreground">
             Nessun evento creato.
           </li>
         )}

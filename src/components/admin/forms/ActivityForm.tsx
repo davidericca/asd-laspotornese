@@ -17,7 +17,7 @@ export function ActivityForm({
           name="title"
           required
           defaultValue={defaultValues?.title}
-          className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+          className="rounded border border-border bg-transparent px-3 py-2"
         />
       </label>
       <label className="flex flex-col gap-1 text-sm">
@@ -26,7 +26,7 @@ export function ActivityForm({
           name="description"
           rows={4}
           defaultValue={defaultValues?.description ?? ""}
-          className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+          className="rounded border border-border bg-transparent px-3 py-2"
         />
       </label>
       <label className="flex items-center gap-2 text-sm">
@@ -37,7 +37,7 @@ export function ActivityForm({
         />
         Pubblicato
       </label>
-      <SubmitButton className="self-start rounded bg-black px-4 py-2 text-white dark:bg-white dark:text-black">
+      <SubmitButton className="self-start rounded bg-primary px-4 py-2 text-primary-foreground">
         Salva
       </SubmitButton>
     </form>

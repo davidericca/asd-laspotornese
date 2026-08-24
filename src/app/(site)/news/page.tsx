@@ -18,24 +18,24 @@ export default async function NewsPage() {
     <>
       <PageHeader title="News" description="Comunicazioni dell'associazione." />
       <div className="mx-auto max-w-5xl px-6 pb-16">
-        <ul className="flex flex-col divide-y divide-black/10 dark:divide-white/10">
+        <ul className="flex flex-col divide-y divide-border">
           {news.map((item) => (
             <li key={item.id} className="py-4">
               <Link href={`/news/${item.slug}`} className="font-medium hover:underline">
                 {item.title}
                 {item.featured && (
-                  <span className="ml-2 text-xs text-black/40 dark:text-white/40">
+                  <span className="ml-2 text-xs font-semibold uppercase tracking-wide text-accent dark:text-muted-foreground">
                     In evidenza
                   </span>
                 )}
               </Link>
-              <p className="text-sm text-black/60 dark:text-white/60">
+              <p className="text-sm text-muted-foreground">
                 {formatDateIt(item.created_at)}
               </p>
             </li>
           ))}
           {news.length === 0 && (
-            <li className="py-4 text-black/60 dark:text-white/60">
+            <li className="py-4 text-muted-foreground">
               Nessuna comunicazione al momento.
             </li>
           )}

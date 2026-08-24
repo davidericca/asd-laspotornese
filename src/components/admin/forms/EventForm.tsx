@@ -29,7 +29,7 @@ export function EventForm({
           name="title"
           required
           defaultValue={defaultValues?.title}
-          className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+          className="rounded border border-border bg-transparent px-3 py-2"
         />
       </label>
       <div className="flex gap-4">
@@ -40,7 +40,7 @@ export function EventForm({
             name="event_date"
             required
             defaultValue={defaultValues?.event_date}
-            className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+            className="rounded border border-border bg-transparent px-3 py-2"
           />
         </label>
         <label className="flex flex-1 flex-col gap-1 text-sm">
@@ -49,7 +49,7 @@ export function EventForm({
             type="time"
             name="event_time"
             defaultValue={defaultValues?.event_time ?? ""}
-            className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+            className="rounded border border-border bg-transparent px-3 py-2"
           />
         </label>
       </div>
@@ -59,7 +59,7 @@ export function EventForm({
           type="text"
           name="location"
           defaultValue={defaultValues?.location ?? ""}
-          className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+          className="rounded border border-border bg-transparent px-3 py-2"
         />
       </label>
       <label className="flex flex-col gap-1 text-sm">
@@ -67,7 +67,7 @@ export function EventForm({
         <select
           name="status"
           defaultValue={defaultValues?.status ?? "programmato"}
-          className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+          className="rounded border border-border bg-transparent px-3 py-2"
         >
           {STATUSES.map((status) => (
             <option key={status} value={status}>
@@ -82,7 +82,7 @@ export function EventForm({
           name="description"
           rows={4}
           defaultValue={defaultValues?.description ?? ""}
-          className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+          className="rounded border border-border bg-transparent px-3 py-2"
         />
       </label>
       <label className="flex flex-col gap-1 text-sm">
@@ -90,7 +90,7 @@ export function EventForm({
         <select
           name="gallery_id"
           defaultValue={defaultValues?.gallery_id ?? ""}
-          className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+          className="rounded border border-border bg-transparent px-3 py-2"
         >
           <option value="">Nessuna</option>
           {galleries.map((gallery) => (
@@ -114,7 +114,7 @@ export function EventForm({
         />
         Pubblicato
       </label>
-      <SubmitButton className="self-start rounded bg-black px-4 py-2 text-white dark:bg-white dark:text-black">
+      <SubmitButton className="self-start rounded bg-primary px-4 py-2 text-primary-foreground">
         Salva
       </SubmitButton>
     </form>

@@ -12,25 +12,25 @@ export default async function AdminNewsPage() {
         <h1 className="text-2xl font-bold">News</h1>
         <Link
           href="/admin/news/new"
-          className="rounded bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black"
+          className="rounded bg-primary px-4 py-2 text-sm text-primary-foreground"
         >
           Nuova news
         </Link>
       </div>
 
-      <ul className="mt-6 divide-y divide-black/10 dark:divide-white/10">
+      <ul className="mt-6 divide-y divide-border">
         {news.map((item) => (
           <li key={item.id} className="flex items-center justify-between py-3">
             <div>
               <p className="font-medium">
                 {item.title}{" "}
                 {!item.published && (
-                  <span className="text-xs text-black/40 dark:text-white/40">
+                  <span className="text-xs text-muted-foreground">
                     (bozza)
                   </span>
                 )}
                 {item.featured && (
-                  <span className="text-xs text-black/40 dark:text-white/40">
+                  <span className="text-xs text-muted-foreground">
                     {" "}
                     &middot; in evidenza
                   </span>
@@ -50,7 +50,7 @@ export default async function AdminNewsPage() {
           </li>
         ))}
         {news.length === 0 && (
-          <li className="py-3 text-black/60 dark:text-white/60">
+          <li className="py-3 text-muted-foreground">
             Nessuna news creata.
           </li>
         )}

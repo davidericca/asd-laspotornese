@@ -11,10 +11,10 @@ export default async function ProtectedAdminLayout({
 
   return (
     <div className="min-h-screen">
-      <header className="flex items-center justify-between border-b border-black/10 px-6 py-4 dark:border-white/10">
-        <span className="font-semibold">Pannello admin</span>
+      <header className="flex items-center justify-between border-b border-border bg-primary px-6 py-4 text-primary-foreground">
+        <span className="font-heading font-semibold">Pannello admin</span>
         <div className="flex items-center gap-4 text-sm">
-          <span className="text-black/60 dark:text-white/60">
+          <span className="text-primary-foreground/80">
             {user?.email}
           </span>
           <form action={logout}>

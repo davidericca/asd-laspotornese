@@ -37,7 +37,7 @@ export function AttachmentsSection({
           </li>
         ))}
         {attachments.length === 0 && (
-          <li className="text-sm text-black/60 dark:text-white/60">
+          <li className="text-sm text-muted-foreground">
             Nessun allegato.
           </li>
         )}
@@ -47,7 +47,7 @@ export function AttachmentsSection({
         className="mt-3 flex items-center gap-3"
       >
         <input type="file" name="file" accept="application/pdf" required />
-        <SubmitButton className="rounded bg-black px-3 py-1.5 text-xs text-white dark:bg-white dark:text-black">
+        <SubmitButton className="rounded bg-primary px-3 py-1.5 text-xs text-primary-foreground">
           Carica PDF
         </SubmitButton>
       </form>

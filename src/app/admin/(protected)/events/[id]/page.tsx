@@ -21,7 +21,7 @@ export default async function EditEventPage({
       <div className="mt-6">
         <EventForm action={updateEvent.bind(null, id)} defaultValues={event} galleries={galleries} />
       </div>
-      <hr className="mt-10 max-w-lg border-black/10 dark:border-white/10" />
+      <hr className="mt-10 max-w-lg border-border" />
       <div className="mt-8">
         <AttachmentsSection
           parent="event"

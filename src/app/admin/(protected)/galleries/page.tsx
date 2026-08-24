@@ -10,13 +10,13 @@ export default async function AdminGalleriesPage() {
         <h1 className="text-2xl font-bold">Gallerie</h1>
         <Link
           href="/admin/galleries/new"
-          className="rounded bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black"
+          className="rounded bg-primary px-4 py-2 text-sm text-primary-foreground"
         >
           Nuova galleria
         </Link>
       </div>
 
-      <ul className="mt-6 divide-y divide-black/10 dark:divide-white/10">
+      <ul className="mt-6 divide-y divide-border">
         {galleries.map((gallery) => (
           <li key={gallery.id} className="py-3">
             <Link href={`/admin/galleries/${gallery.id}`} className="hover:underline">
@@ -25,7 +25,7 @@ export default async function AdminGalleriesPage() {
           </li>
         ))}
         {galleries.length === 0 && (
-          <li className="py-3 text-black/60 dark:text-white/60">
+          <li className="py-3 text-muted-foreground">
             Nessuna galleria creata.
           </li>
         )}

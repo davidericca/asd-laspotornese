@@ -19,7 +19,7 @@ export default async function EditNewsPage({
       <div className="mt-6">
         <NewsForm action={updateNews.bind(null, id)} defaultValues={item} />
       </div>
-      <hr className="mt-10 max-w-lg border-black/10 dark:border-white/10" />
+      <hr className="mt-10 max-w-lg border-border" />
       <div className="mt-8">
         <AttachmentsSection
           parent="news"

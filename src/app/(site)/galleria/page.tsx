@@ -24,7 +24,7 @@ export default async function GalleriaPage() {
               href={`/galleria/${gallery.id}`}
               className="group"
             >
-              <div className="aspect-square overflow-hidden rounded bg-black/5 dark:bg-white/5">
+              <div className="aspect-square overflow-hidden rounded-lg border border-border bg-muted">
                 {gallery.cover_image_url && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -34,12 +34,12 @@ export default async function GalleriaPage() {
                   />
                 )}
               </div>
-              <p className="mt-2 text-sm font-medium">{gallery.title}</p>
+              <p className="mt-2 text-sm font-medium text-foreground">{gallery.title}</p>
             </Link>
           ))}
         </div>
         {galleries.length === 0 && (
-          <p className="text-black/60 dark:text-white/60">
+          <p className="text-muted-foreground">
             Nessuna galleria pubblicata al momento.
           </p>
         )}

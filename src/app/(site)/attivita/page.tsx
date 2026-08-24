@@ -20,11 +20,11 @@ export default async function AttivitaPage() {
           {activities.map((activity) => (
             <div
               key={activity.id}
-              className="rounded border border-black/10 p-6 dark:border-white/10"
+              className="rounded-lg border border-border bg-card p-6 shadow-sm"
             >
-              <h2 className="font-semibold">{activity.title}</h2>
+              <h2 className="font-heading font-semibold text-card-foreground">{activity.title}</h2>
               {activity.description && (
-                <p className="mt-2 whitespace-pre-line text-sm text-black/60 dark:text-white/60">
+                <p className="mt-2 whitespace-pre-line text-sm text-muted-foreground">
                   {activity.description}
                 </p>
               )}
@@ -32,7 +32,7 @@ export default async function AttivitaPage() {
           ))}
         </div>
         {activities.length === 0 && (
-          <p className="text-black/60 dark:text-white/60">
+          <p className="text-muted-foreground">
             [INSERIRE elenco delle attività sportive proposte]
           </p>
         )}

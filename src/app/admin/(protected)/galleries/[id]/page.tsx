@@ -24,7 +24,7 @@ export default async function EditGalleryPage({
         className="mt-6 flex items-center gap-4"
       >
         <input type="file" name="images" accept="image/*" multiple required />
-        <SubmitButton className="rounded bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black">
+        <SubmitButton className="rounded bg-primary px-4 py-2 text-sm text-primary-foreground">
           Carica foto
         </SubmitButton>
       </form>
@@ -32,7 +32,7 @@ export default async function EditGalleryPage({
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {images.map((image) => (
           <div key={image.id} className="flex flex-col gap-2">
-            <div className="aspect-square w-full overflow-hidden rounded bg-black/5 dark:bg-white/5">
+            <div className="aspect-square w-full overflow-hidden rounded-lg border border-border bg-muted">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={image.url}
@@ -49,7 +49,7 @@ export default async function EditGalleryPage({
         ))}
       </div>
       {images.length === 0 && (
-        <p className="mt-8 text-black/60 dark:text-white/60">
+        <p className="mt-8 text-muted-foreground">
           Nessuna foto caricata.
         </p>
       )}

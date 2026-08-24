@@ -10,26 +10,37 @@ const links = [
   { href: "/eventi", label: "Eventi" },
   { href: "/news", label: "News" },
   { href: "/galleria", label: "Galleria" },
-  { href: "/contatti", label: "Contatti" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="border-b border-black/10 dark:border-white/10">
+    <header className="bg-primary text-primary-foreground">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-lg font-semibold" onClick={() => setOpen(false)}>
+        <Link
+          href="/"
+          className="font-heading text-lg font-semibold"
+          onClick={() => setOpen(false)}
+        >
           ASD La Spotornese
         </Link>
-        <ul className="hidden gap-x-6 text-sm sm:flex">
+        <ul className="hidden items-center gap-x-6 text-sm sm:flex">
           {links.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="hover:underline">
+              <Link href={link.href} className="transition hover:opacity-80">
                 {link.label}
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href="/contatti"
+              className="rounded bg-accent px-4 py-2 font-medium text-accent-foreground transition hover:opacity-90"
+            >
+              Contattaci
+            </Link>
+          </li>
         </ul>
         <button
           type="button"
@@ -47,13 +58,22 @@ export function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="block py-1 hover:underline"
+                className="block py-1 hover:opacity-80"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
               </Link>
             </li>
           ))}
+          <li className="pt-2">
+            <Link
+              href="/contatti"
+              className="inline-block rounded bg-accent px-4 py-2 font-medium text-accent-foreground"
+              onClick={() => setOpen(false)}
+            >
+              Contattaci
+            </Link>
+          </li>
         </ul>
       )}
     </header>

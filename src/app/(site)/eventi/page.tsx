@@ -17,7 +17,7 @@ function EventItem({ event }: { event: EventRow }) {
       <Link href={`/eventi/${event.slug}`} className="font-medium hover:underline">
         {event.title}
       </Link>
-      <p className="text-sm text-black/60 dark:text-white/60">
+      <p className="text-sm text-muted-foreground">
         {formatDateIt(event.event_date)}
         {event.location && ` · ${event.location}`}
       </p>
@@ -37,15 +37,15 @@ export default async function EventiPage() {
     <>
       <PageHeader title="Eventi" description="Calendario di eventi e gare." />
       <div className="mx-auto max-w-5xl px-6 pb-16">
-        <h2 className="text-sm font-semibold uppercase text-black/40 dark:text-white/40">
+        <h2 className="font-heading text-sm font-semibold uppercase tracking-wide text-muted-foreground">
           Prossimi eventi
         </h2>
-        <ul className="mt-2 flex flex-col divide-y divide-black/10 dark:divide-white/10">
+        <ul className="mt-2 flex flex-col divide-y divide-border">
           {upcoming.map((event) => (
             <EventItem key={event.id} event={event} />
           ))}
           {upcoming.length === 0 && (
-            <li className="py-4 text-black/60 dark:text-white/60">
+            <li className="py-4 text-muted-foreground">
               Nessun evento in programma al momento.
             </li>
           )}
@@ -53,10 +53,10 @@ export default async function EventiPage() {
 
         {past.length > 0 && (
           <>
-            <h2 className="mt-10 text-sm font-semibold uppercase text-black/40 dark:text-white/40">
+            <h2 className="mt-10 font-heading text-sm font-semibold uppercase tracking-wide text-muted-foreground">
               Eventi passati
             </h2>
-            <ul className="mt-2 flex flex-col divide-y divide-black/10 dark:divide-white/10 opacity-70">
+            <ul className="mt-2 flex flex-col divide-y divide-border opacity-70">
               {past.map((event) => (
                 <EventItem key={event.id} event={event} />
               ))}
