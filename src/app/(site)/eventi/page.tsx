@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedEvents } from "@/lib/data/events";
 import { formatDateIt } from "@/lib/utils";
@@ -14,14 +15,13 @@ export default async function EventiPage() {
         <ul className="flex flex-col divide-y divide-black/10 dark:divide-white/10">
           {events.map((event) => (
             <li key={event.id} className="py-4">
-              <p className="font-medium">{event.title}</p>
+              <Link href={`/eventi/${event.slug}`} className="font-medium hover:underline">
+                {event.title}
+              </Link>
               <p className="text-sm text-black/60 dark:text-white/60">
                 {formatDateIt(event.event_date)}
                 {event.location && ` · ${event.location}`}
               </p>
-              {event.description && (
-                <p className="mt-2 text-sm">{event.description}</p>
-              )}
             </li>
           ))}
           {events.length === 0 && (

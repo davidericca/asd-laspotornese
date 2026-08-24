@@ -23,6 +23,18 @@ export async function getPublishedNews() {
   return data as NewsRow[];
 }
 
+export async function getPublishedNewsBySlug(slug: string) {
+  const { data, error } = await supabasePublic
+    .from("news")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .single();
+
+  if (error) throw error;
+  return data as NewsRow;
+}
+
 export async function getAdminNews() {
   const supabase = await getServerSupabase();
   const { data, error } = await supabase

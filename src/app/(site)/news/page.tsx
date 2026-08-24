@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedNews } from "@/lib/data/news";
 import { formatDateIt } from "@/lib/utils";
@@ -14,18 +15,17 @@ export default async function NewsPage() {
         <ul className="flex flex-col divide-y divide-black/10 dark:divide-white/10">
           {news.map((item) => (
             <li key={item.id} className="py-4">
-              <p className="font-medium">
+              <Link href={`/news/${item.slug}`} className="font-medium hover:underline">
                 {item.title}
                 {item.featured && (
                   <span className="ml-2 text-xs text-black/40 dark:text-white/40">
                     In evidenza
                   </span>
                 )}
-              </p>
+              </Link>
               <p className="text-sm text-black/60 dark:text-white/60">
                 {formatDateIt(item.created_at)}
               </p>
-              <p className="mt-2 text-sm">{item.body}</p>
             </li>
           ))}
           {news.length === 0 && (

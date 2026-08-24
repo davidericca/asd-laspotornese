@@ -4,9 +4,11 @@ import { SubmitButton } from "@/components/ui/SubmitButton";
 export function NewsForm({
   action,
   defaultValues,
+  showAttachmentField,
 }: {
   action: (formData: FormData) => void;
   defaultValues?: NewsRow;
+  showAttachmentField?: boolean;
 }) {
   return (
     <form action={action} className="flex max-w-lg flex-col gap-4">
@@ -38,6 +40,12 @@ export function NewsForm({
         />
         In evidenza
       </label>
+      {showAttachmentField && (
+        <label className="flex flex-col gap-1 text-sm">
+          Allegato PDF (opzionale)
+          <input type="file" name="attachment" accept="application/pdf" />
+        </label>
+      )}
       <label className="flex items-center gap-2 text-sm">
         <input
           type="checkbox"

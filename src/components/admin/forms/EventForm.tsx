@@ -1,4 +1,5 @@
 import type { EventRow } from "@/lib/data/events";
+import type { GalleryRow } from "@/lib/data/galleries";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 
 const STATUSES: EventRow["status"][] = [
@@ -11,9 +12,13 @@ const STATUSES: EventRow["status"][] = [
 export function EventForm({
   action,
   defaultValues,
+  galleries,
+  showAttachmentField,
 }: {
   action: (formData: FormData) => void;
   defaultValues?: EventRow;
+  galleries: GalleryRow[];
+  showAttachmentField?: boolean;
 }) {
   return (
     <form action={action} className="flex max-w-lg flex-col gap-4">
@@ -80,6 +85,27 @@ export function EventForm({
           className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
         />
       </label>
+      <label className="flex flex-col gap-1 text-sm">
+        Galleria foto collegata
+        <select
+          name="gallery_id"
+          defaultValue={defaultValues?.gallery_id ?? ""}
+          className="rounded border border-black/20 bg-transparent px-3 py-2 dark:border-white/20"
+        >
+          <option value="">Nessuna</option>
+          {galleries.map((gallery) => (
+            <option key={gallery.id} value={gallery.id}>
+              {gallery.title}
+            </option>
+          ))}
+        </select>
+      </label>
+      {showAttachmentField && (
+        <label className="flex flex-col gap-1 text-sm">
+          Allegato PDF (opzionale)
+          <input type="file" name="attachment" accept="application/pdf" />
+        </label>
+      )}
       <label className="flex items-center gap-2 text-sm">
         <input
           type="checkbox"

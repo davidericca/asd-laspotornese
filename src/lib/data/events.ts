@@ -26,6 +26,18 @@ export async function getPublishedEvents() {
   return data as EventRow[];
 }
 
+export async function getPublishedEventBySlug(slug: string) {
+  const { data, error } = await supabasePublic
+    .from("events")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .single();
+
+  if (error) throw error;
+  return data as EventRow;
+}
+
 export async function getAdminEvents() {
   const supabase = await getServerSupabase();
   const { data, error } = await supabase

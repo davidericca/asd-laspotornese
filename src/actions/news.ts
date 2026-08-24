@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getServerSupabase } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils";
+import { uploadAttachmentFile } from "@/lib/storage/upload-attachment";
 
 function readNewsFields(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
@@ -20,8 +21,17 @@ export async function createNews(formData: FormData) {
   const supabase = await getServerSupabase();
   const fields = readNewsFields(formData);
 
-  const { error } = await supabase.from("news").insert(fields);
+  const { data, error } = await supabase
+    .from("news")
+    .insert(fields)
+    .select("id")
+    .single();
   if (error) throw new Error(error.message);
+
+  const attachment = formData.get("attachment");
+  if (attachment instanceof File && attachment.size > 0) {
+    await uploadAttachmentFile(supabase, "news", data.id, attachment);
+  }
 
   revalidatePath("/news");
   redirect("/admin/news");
@@ -35,6 +45,7 @@ export async function updateNews(id: string, formData: FormData) {
   if (error) throw new Error(error.message);
 
   revalidatePath("/news");
+  revalidatePath(`/news/${fields.slug}`);
   redirect("/admin/news");
 }
 
