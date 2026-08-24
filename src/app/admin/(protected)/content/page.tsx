@@ -10,7 +10,7 @@ export default async function AdminContentPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Testi del sito</h1>
+      <h1 className="font-heading text-2xl font-bold">Testi del sito</h1>
       <p className="mt-2 max-w-lg text-sm text-muted-foreground">
         Le attività ora si gestiscono da &quot;Gestisci attività&quot; nella dashboard, una scheda per volta.
       </p>
@@ -60,7 +60,7 @@ export default async function AdminContentPage() {
             className={fieldClass}
           />
         </label>
-        <SubmitButton className="self-start rounded bg-primary px-4 py-2 text-primary-foreground">
+        <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
           Salva
         </SubmitButton>
       </form>

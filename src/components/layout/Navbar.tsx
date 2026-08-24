@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { List, X } from "@phosphor-icons/react";
 
 const links = [
   { href: "/", label: "Home" },
@@ -20,9 +22,18 @@ export function Navbar() {
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="font-heading text-lg font-semibold"
+          className="flex items-center gap-3 font-heading text-lg font-semibold"
           onClick={() => setOpen(false)}
         >
+          <Image
+            src="/stemma.png"
+            alt=""
+            aria-hidden="true"
+            width={40}
+            height={40}
+            priority
+            className="h-10 w-10"
+          />
           ASD La Spotornese
         </Link>
         <ul className="hidden items-center gap-x-6 text-sm sm:flex">
@@ -36,7 +47,7 @@ export function Navbar() {
           <li>
             <Link
               href="/contatti"
-              className="rounded bg-accent px-4 py-2 font-medium text-accent-foreground transition hover:opacity-90"
+              className="rounded-xs bg-accent px-4 py-2 font-medium text-accent-foreground transition hover:opacity-90"
             >
               Contattaci
             </Link>
@@ -47,9 +58,9 @@ export function Navbar() {
           onClick={() => setOpen((value) => !value)}
           aria-label={open ? "Chiudi menu" : "Apri menu"}
           aria-expanded={open}
-          className="text-2xl leading-none sm:hidden"
+          className="-m-2 cursor-pointer rounded-xs p-2 transition hover:bg-white/10 sm:hidden"
         >
-          {open ? "✕" : "☰"}
+          {open ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
         </button>
       </div>
       {open && (
@@ -68,7 +79,7 @@ export function Navbar() {
           <li className="pt-2">
             <Link
               href="/contatti"
-              className="inline-block rounded bg-accent px-4 py-2 font-medium text-accent-foreground"
+              className="inline-block rounded-xs bg-accent px-4 py-2 font-medium text-accent-foreground"
               onClick={() => setOpen(false)}
             >
               Contattaci

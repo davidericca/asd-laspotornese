@@ -54,7 +54,7 @@ export function NewsForm({
         />
         Pubblicato
       </label>
-      <SubmitButton className="self-start rounded bg-primary px-4 py-2 text-primary-foreground">
+      <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
         Salva
       </SubmitButton>
     </form>

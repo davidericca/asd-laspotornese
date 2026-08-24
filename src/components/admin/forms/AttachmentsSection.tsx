@@ -15,7 +15,7 @@ export function AttachmentsSection({
 }) {
   return (
     <div className="max-w-lg">
-      <h2 className="text-sm font-semibold">Allegati PDF</h2>
+      <h2 className="font-heading text-sm font-semibold">Allegati PDF</h2>
       <ul className="mt-2 flex flex-col gap-2">
         {attachments.map((attachment) => (
           <li key={attachment.id} className="flex items-center justify-between text-sm">
@@ -30,7 +30,7 @@ export function AttachmentsSection({
                 revalidateTarget,
               )}
             >
-              <SubmitButton className="text-xs text-red-600 hover:underline dark:text-red-400">
+              <SubmitButton className="text-xs text-red-600 hover:underline">
                 Elimina
               </SubmitButton>
             </form>
@@ -47,7 +47,7 @@ export function AttachmentsSection({
         className="mt-3 flex items-center gap-3"
       >
         <input type="file" name="file" accept="application/pdf" required />
-        <SubmitButton className="rounded bg-primary px-3 py-1.5 text-xs text-primary-foreground">
+        <SubmitButton className="rounded-xs bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
           Carica PDF
         </SubmitButton>
       </form>

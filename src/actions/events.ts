@@ -14,7 +14,7 @@ function readEventFields(formData: FormData) {
     event_date: String(formData.get("event_date") ?? ""),
     event_time: String(formData.get("event_time") ?? "") || null,
     location: String(formData.get("location") ?? "") || null,
-    status: String(formData.get("status") ?? "programmato"),
+    status: formData.get("cancelled") === "on" ? "annullato" : "programmato",
     description: String(formData.get("description") ?? "") || null,
     gallery_id: String(formData.get("gallery_id") ?? "") || null,
     published: formData.get("published") === "on",

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CalendarBlank, MapPin } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { getPublishedEventBySlug } from "@/lib/data/events";
+import { EventStatusBadge } from "@/components/ui/EventStatusBadge";
+import { getEventDisplayStatus, getPublishedEventBySlug } from "@/lib/data/events";
 import { getPublishedAttachments } from "@/lib/data/attachments";
 import { getPublishedGalleryWithImages } from "@/lib/data/galleries";
 import { formatDateIt } from "@/lib/utils";
@@ -35,11 +37,21 @@ export default async function EventDetailPage({
 
   return (
     <>
-      <PageHeader
-        title={event.title}
-        description={`${formatDateIt(event.event_date)}${event.location ? ` · ${event.location}` : ""} · ${event.status}`}
-      />
+      <PageHeader title={event.title} />
       <div className="mx-auto max-w-5xl px-6 pb-16">
+        <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <CalendarBlank size={16} aria-hidden="true" />
+            {formatDateIt(event.event_date)}
+          </span>
+          {event.location && (
+            <span className="inline-flex items-center gap-1">
+              <MapPin size={16} aria-hidden="true" />
+              {event.location}
+            </span>
+          )}
+          <EventStatusBadge status={getEventDisplayStatus(event)} />
+        </div>
         {event.description && (
           <p className="whitespace-pre-line text-sm">{event.description}</p>
         )}

@@ -15,6 +15,16 @@ export type EventRow = {
   published: boolean;
 };
 
+export function getEventDisplayStatus(
+  event: Pick<EventRow, "status" | "event_date">,
+): EventRow["status"] {
+  if (event.status === "annullato") return "annullato";
+  const today = new Date().toISOString().slice(0, 10);
+  if (event.event_date < today) return "concluso";
+  if (event.event_date === today) return "in corso";
+  return "programmato";
+}
+
 export async function getPublishedEvents() {
   const { data, error } = await supabasePublic
     .from("events")

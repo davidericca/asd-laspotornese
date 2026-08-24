@@ -9,10 +9,10 @@ export default async function AdminNewsPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">News</h1>
+        <h1 className="font-heading text-2xl font-bold">News</h1>
         <Link
           href="/admin/news/new"
-          className="rounded bg-primary px-4 py-2 text-sm text-primary-foreground"
+          className="rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover"
         >
           Nuova news
         </Link>
@@ -20,7 +20,10 @@ export default async function AdminNewsPage() {
 
       <ul className="mt-6 divide-y divide-border">
         {news.map((item) => (
-          <li key={item.id} className="flex items-center justify-between py-3">
+          <li
+            key={item.id}
+            className="-mx-2 flex items-center justify-between gap-4 px-2 py-3 transition-colors hover:bg-muted/50"
+          >
             <div>
               <p className="font-medium">
                 {item.title}{" "}
@@ -42,7 +45,7 @@ export default async function AdminNewsPage() {
                 Modifica
               </Link>
               <form action={deleteNews.bind(null, item.id)}>
-                <SubmitButton className="text-red-600 hover:underline dark:text-red-400">
+                <SubmitButton className="text-red-600 hover:underline">
                   Elimina
                 </SubmitButton>
               </form>

@@ -11,9 +11,9 @@ export default async function EditGalleryPage({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{gallery.title}</h1>
+        <h1 className="font-heading text-2xl font-bold">{gallery.title}</h1>
         <form action={deleteGallery.bind(null, id)}>
-          <SubmitButton className="text-sm text-red-600 hover:underline dark:text-red-400">
+          <SubmitButton className="text-sm text-red-600 hover:underline">
             Elimina galleria
           </SubmitButton>
         </form>
@@ -24,7 +24,7 @@ export default async function EditGalleryPage({
         className="mt-6 flex items-center gap-4"
       >
         <input type="file" name="images" accept="image/*" multiple required />
-        <SubmitButton className="rounded bg-primary px-4 py-2 text-sm text-primary-foreground">
+        <SubmitButton className="rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
           Carica foto
         </SubmitButton>
       </form>
@@ -32,7 +32,7 @@ export default async function EditGalleryPage({
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {images.map((image) => (
           <div key={image.id} className="flex flex-col gap-2">
-            <div className="aspect-square w-full overflow-hidden rounded-lg border border-border bg-muted">
+            <div className="aspect-square w-full overflow-hidden border border-border bg-muted">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={image.url}
@@ -41,7 +41,7 @@ export default async function EditGalleryPage({
               />
             </div>
             <form action={deleteImage.bind(null, id, image.id, image.url)}>
-              <SubmitButton className="text-xs text-red-600 hover:underline dark:text-red-400">
+              <SubmitButton className="text-xs text-red-600 hover:underline">
                 Elimina
               </SubmitButton>
             </form>

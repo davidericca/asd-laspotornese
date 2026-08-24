@@ -7,7 +7,7 @@ export default async function NewEventPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Nuovo evento</h1>
+      <h1 className="font-heading text-2xl font-bold">Nuovo evento</h1>
       <div className="mt-6">
         <EventForm action={createEvent} galleries={galleries} showAttachmentField />
       </div>

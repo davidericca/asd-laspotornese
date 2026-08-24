@@ -9,10 +9,10 @@ export default async function AdminActivitiesPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Attività</h1>
+        <h1 className="font-heading text-2xl font-bold">Attività</h1>
         <Link
           href="/admin/activities/new"
-          className="rounded bg-primary px-4 py-2 text-sm text-primary-foreground"
+          className="rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover"
         >
           Nuova attività
         </Link>
@@ -20,7 +20,10 @@ export default async function AdminActivitiesPage() {
 
       <ul className="mt-6 divide-y divide-border">
         {activities.map((activity, index) => (
-          <li key={activity.id} className="flex items-center justify-between py-3">
+          <li
+            key={activity.id}
+            className="-mx-2 flex items-center justify-between gap-4 px-2 py-3 transition-colors hover:bg-muted/50"
+          >
             <div className="flex items-center gap-2">
               <div className="flex flex-col">
                 <form action={moveActivity.bind(null, activity.id, "up")}>
@@ -58,7 +61,7 @@ export default async function AdminActivitiesPage() {
                 Modifica
               </Link>
               <form action={deleteActivity.bind(null, activity.id)}>
-                <SubmitButton className="text-red-600 hover:underline dark:text-red-400">
+                <SubmitButton className="text-red-600 hover:underline">
                   Elimina
                 </SubmitButton>
               </form>

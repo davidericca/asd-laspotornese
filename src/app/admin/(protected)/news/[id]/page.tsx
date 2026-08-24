@@ -15,7 +15,7 @@ export default async function EditNewsPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Modifica news</h1>
+      <h1 className="font-heading text-2xl font-bold">Modifica news</h1>
       <div className="mt-6">
         <NewsForm action={updateNews.bind(null, id)} defaultValues={item} />
       </div>

@@ -17,7 +17,7 @@ export default async function EditEventPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Modifica evento</h1>
+      <h1 className="font-heading text-2xl font-bold">Modifica evento</h1>
       <div className="mt-6">
         <EventForm action={updateEvent.bind(null, id)} defaultValues={event} galleries={galleries} />
       </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
 
@@ -20,19 +21,28 @@ export default async function ContattiPage() {
         <dl className="flex flex-col gap-3 rounded-lg border border-border bg-card p-6 text-sm shadow-sm sm:max-w-sm">
           {content.contatti_indirizzo && (
             <div>
-              <dt className="text-muted-foreground">Indirizzo</dt>
+              <dt className="flex items-center gap-1.5 text-muted-foreground">
+                <MapPin size={16} aria-hidden="true" />
+                Indirizzo
+              </dt>
               <dd className="text-card-foreground">{content.contatti_indirizzo}</dd>
             </div>
           )}
           {content.contatti_telefono && (
             <div>
-              <dt className="text-muted-foreground">Telefono</dt>
+              <dt className="flex items-center gap-1.5 text-muted-foreground">
+                <Phone size={16} aria-hidden="true" />
+                Telefono
+              </dt>
               <dd className="text-card-foreground">{content.contatti_telefono}</dd>
             </div>
           )}
           {content.contatti_email && (
             <div>
-              <dt className="text-muted-foreground">Email</dt>
+              <dt className="flex items-center gap-1.5 text-muted-foreground">
+                <EnvelopeSimple size={16} aria-hidden="true" />
+                Email
+              </dt>
               <dd className="text-card-foreground">{content.contatti_email}</dd>
             </div>
           )}

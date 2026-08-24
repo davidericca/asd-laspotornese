@@ -2,13 +2,6 @@ import type { EventRow } from "@/lib/data/events";
 import type { GalleryRow } from "@/lib/data/galleries";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 
-const STATUSES: EventRow["status"][] = [
-  "programmato",
-  "in corso",
-  "concluso",
-  "annullato",
-];
-
 export function EventForm({
   action,
   defaultValues,
@@ -62,20 +55,21 @@ export function EventForm({
           className="rounded border border-border bg-transparent px-3 py-2"
         />
       </label>
-      <label className="flex flex-col gap-1 text-sm">
-        Stato
-        <select
-          name="status"
-          defaultValue={defaultValues?.status ?? "programmato"}
-          className="rounded border border-border bg-transparent px-3 py-2"
-        >
-          {STATUSES.map((status) => (
-            <option key={status} value={status}>
-              {status}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className="flex flex-col gap-1">
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            name="cancelled"
+            defaultChecked={defaultValues?.status === "annullato"}
+          />
+          Evento annullato
+        </label>
+        <p className="text-xs text-muted-foreground">
+          Lo stato &quot;programmato / in corso / concluso&quot; viene calcolato
+          automaticamente in base alla data. Usa questa casella solo per
+          segnalare che l&apos;evento è stato annullato.
+        </p>
+      </div>
       <label className="flex flex-col gap-1 text-sm">
         Descrizione
         <textarea
@@ -114,7 +108,7 @@ export function EventForm({
         />
         Pubblicato
       </label>
-      <SubmitButton className="self-start rounded bg-primary px-4 py-2 text-primary-foreground">
+      <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
         Salva
       </SubmitButton>
     </form>
