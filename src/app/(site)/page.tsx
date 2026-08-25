@@ -119,10 +119,12 @@ export default async function HomePage() {
             </h2>
             <div className="flex-1">
               {latestNews.length > 0 ? (
-                <div className="mt-4">
-                  {featuredNews.cover_image_url && <FeaturedNewsCard item={featuredNews} />}
+                <div className="mt-4 flex h-full flex-col">
+                  {featuredNews.cover_image_url && (
+                    <FeaturedNewsCard item={featuredNews} className="flex-1" />
+                  )}
                   {listedNews.length > 0 && (
-                    <ul className="flex flex-col divide-y divide-border border-t border-border">
+                    <ul className="mt-4 flex flex-col divide-y divide-border border-t border-border">
                       {listedNews.map((item) => (
                         <li key={item.id} className="py-3">
                           <Link href={`/news/${item.slug}`} className="text-card-foreground hover:underline">
@@ -273,11 +275,11 @@ function EventPreviewCard({ event }: { event: EventRow }) {
   );
 }
 
-function FeaturedNewsCard({ item }: { item: NewsRow }) {
+function FeaturedNewsCard({ item, className = "" }: { item: NewsRow; className?: string }) {
   return (
     <Link
       href={`/news/${item.slug}`}
-      className={`group mb-4 flex flex-col overflow-hidden sm:flex-row ${cardClass}`}
+      className={`group mb-4 flex flex-col overflow-hidden sm:flex-row ${cardClass} ${className}`}
     >
       <div className="aspect-[16/10] bg-muted sm:aspect-auto sm:w-2/5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
