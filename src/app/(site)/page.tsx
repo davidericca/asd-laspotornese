@@ -6,6 +6,7 @@ import { getLatestNews, type NewsRow } from "@/lib/data/news";
 import { getPublishedActivities } from "@/lib/data/activities";
 import { getPublishedGalleries } from "@/lib/data/galleries";
 import { cardClass } from "@/lib/ui";
+import { formatDateIt } from "@/lib/utils";
 
 export const revalidate = 60;
 
@@ -204,22 +205,26 @@ export default async function HomePage() {
           <h2 className="font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
             Galleria fotografica
           </h2>
-          <div className="mt-6 columns-2 gap-4 sm:columns-3 sm:gap-6">
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {galleryPreview.map((gallery) => (
               <Link
                 key={gallery.id}
                 href={`/galleria/${gallery.id}`}
-                className="group mb-4 block break-inside-avoid overflow-hidden bg-muted sm:mb-6"
+                className={`group flex flex-col overflow-hidden ${cardClass}`}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={gallery.cover_image_url!}
-                  alt={gallery.title}
-                  className="h-auto w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                />
-                <p className="mt-2 font-mono text-xs tracking-widest text-muted-foreground uppercase">
-                  {gallery.title}
-                </p>
+                <div className="aspect-[16/10] bg-muted">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={gallery.cover_image_url!}
+                    alt={gallery.title}
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="font-heading font-semibold text-card-foreground group-hover:underline">
+                    {gallery.title}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
@@ -272,9 +277,9 @@ function FeaturedNewsCard({ item }: { item: NewsRow }) {
   return (
     <Link
       href={`/news/${item.slug}`}
-      className={`group mb-4 flex flex-col overflow-hidden ${cardClass}`}
+      className={`group mb-4 flex flex-col overflow-hidden sm:flex-row ${cardClass}`}
     >
-      <div className="aspect-[16/9] bg-muted">
+      <div className="aspect-[16/10] bg-muted sm:aspect-auto sm:w-2/5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={item.cover_image_url!}
@@ -282,15 +287,18 @@ function FeaturedNewsCard({ item }: { item: NewsRow }) {
           className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
         />
       </div>
-      <div className="p-4">
+      <div className="flex flex-1 flex-col justify-center gap-1.5 p-5">
+        <span className="font-mono text-xs text-muted-foreground">
+          {formatDateIt(item.created_at)}
+        </span>
+        <p className="font-heading font-semibold text-card-foreground group-hover:underline">
+          {item.title}
+        </p>
         {item.featured && (
           <span className="text-xs font-semibold tracking-wide text-accent uppercase">
             In evidenza
           </span>
         )}
-        <p className="mt-1 font-heading font-semibold text-card-foreground group-hover:underline">
-          {item.title}
-        </p>
       </div>
     </Link>
   );
