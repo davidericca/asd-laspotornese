@@ -9,6 +9,8 @@
   --primary-foreground: #ffffff;
   --accent: #c2410c;
   --accent-foreground: #ffffff;
+  --accent-teal: #1f7a6c;
+  --accent-gold: #b6851e;
   --card: #ffffff;
   --card-foreground: #0b2230;
   --muted: #f0f3f1;
@@ -25,6 +27,8 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-teal: var(--accent-teal);
+  --color-accent-gold: var(--accent-gold);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-muted: var(--muted);

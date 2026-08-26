@@ -34,7 +34,12 @@ export function Navbar() {
             priority
             className="h-10 w-10"
           />
-          ASD La Spotornese
+          <span className="flex flex-col leading-tight">
+            ASD La Spotornese
+            <span className="font-mono text-[10px] font-normal tracking-widest text-primary-foreground/55 uppercase">
+              Pesca sportiva
+            </span>
+          </span>
         </Link>
         <ul className="hidden items-center gap-x-6 text-sm sm:flex">
           {links.map((link) => (
