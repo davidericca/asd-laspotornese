@@ -102,10 +102,10 @@ export default async function HomePage() {
           </p>
           <div className="mt-5">
             <Link
-              href="/attivita"
+              href="/chi-siamo"
               className="inline-block rounded-full bg-accent px-6 py-3 font-bold text-accent-foreground transition hover:opacity-90"
             >
-              Scopri le attività →
+              Scopri la società →
             </Link>
           </div>
         </div>
