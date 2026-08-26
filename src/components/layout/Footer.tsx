@@ -1,24 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  EnvelopeSimple,
-  FacebookLogo,
-  InstagramLogo,
-  MapPin,
-  Phone,
-  YoutubeLogo,
-} from "@phosphor-icons/react/ssr";
+import { EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
+import { getSocialLinks } from "@/lib/social-links";
 
 export async function Footer() {
   const content = await getPublishedSiteContent();
   const hasContactDetails =
     content.contatti_indirizzo || content.contatti_telefono || content.contatti_email;
-  const socialLinks = [
-    { href: content.social_facebook, label: "Facebook", Icon: FacebookLogo },
-    { href: content.social_instagram, label: "Instagram", Icon: InstagramLogo },
-    { href: content.social_youtube, label: "YouTube", Icon: YoutubeLogo },
-  ].filter((link) => link.href);
+  const socialLinks = getSocialLinks(content);
 
   return (
     <footer className="bg-primary text-primary-foreground/70">

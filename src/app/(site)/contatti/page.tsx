@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import {
-  EnvelopeSimple,
-  FacebookLogo,
-  InstagramLogo,
-  MapPin,
-  Phone,
-  YoutubeLogo,
-} from "@phosphor-icons/react/ssr";
+import { EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
+import { getSocialLinks } from "@/lib/social-links";
 import { cardClass } from "@/lib/ui";
 
 export const revalidate = 60;
@@ -24,11 +18,7 @@ export default async function ContattiPage() {
   const hasAnyDetail =
     content.contatti_indirizzo || content.contatti_telefono || content.contatti_email;
   const hasMap = hasAddress || content.contatti_coordinate;
-  const socialLinks = [
-    { href: content.social_facebook, label: "Facebook", Icon: FacebookLogo },
-    { href: content.social_instagram, label: "Instagram", Icon: InstagramLogo },
-    { href: content.social_youtube, label: "YouTube", Icon: YoutubeLogo },
-  ].filter((link) => link.href);
+  const socialLinks = getSocialLinks(content);
 
   return (
     <>

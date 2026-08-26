@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CalendarBlank, MapPin } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { EventStatusBadge } from "@/components/ui/EventStatusBadge";
+import { AttachmentList } from "@/components/site/AttachmentList";
 import { getEventDisplayStatus, getPublishedEventBySlug } from "@/lib/data/events";
 import { getPublishedAttachments } from "@/lib/data/attachments";
 import { getPublishedGalleryWithImages } from "@/lib/data/galleries";
@@ -56,24 +57,7 @@ export default async function EventDetailPage({
           <p className="whitespace-pre-line text-sm">{event.description}</p>
         )}
 
-        {attachments.length > 0 && (
-          <div className="mt-8">
-            <h2 className="font-heading text-sm font-semibold">Allegati</h2>
-            <ul className="mt-2 flex flex-col gap-1">
-              {attachments.map((attachment) => (
-                <li key={attachment.id}>
-                  <a
-                    href={attachment.file_url}
-                    target="_blank"
-                    className="text-sm text-muted-foreground hover:underline"
-                  >
-                    {attachment.file_name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <AttachmentList attachments={attachments} />
 
         {galleryData && galleryData.images.length > 0 && (
           <div className="mt-8">

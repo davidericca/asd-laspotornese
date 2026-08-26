@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Boat, Fish, Trophy, Users } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedActivities, type ActivityRow } from "@/lib/data/activities";
+import { getActivityStyle } from "@/lib/activity-style";
 import { cardClass } from "@/lib/ui";
 
 export const revalidate = 60;
@@ -11,12 +11,8 @@ export const metadata: Metadata = {
   description: "Le attività proposte dall'ASD La Spotornese.",
 };
 
-const ACTIVITY_ACCENTS = ["text-accent", "text-accent-teal", "text-accent-gold", "text-accent"];
-const ACTIVITY_ICONS = [Boat, Fish, Trophy, Users];
-
 function ActivityCard({ activity, index }: { activity: ActivityRow; index: number }) {
-  const accent = ACTIVITY_ACCENTS[index % ACTIVITY_ACCENTS.length];
-  const Icon = ACTIVITY_ICONS[index % ACTIVITY_ICONS.length];
+  const { accent, Icon } = getActivityStyle(index);
 
   return (
     <div className={`flex flex-col overflow-hidden ${cardClass}`}>

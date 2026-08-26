@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { getServerSupabase } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils";
 import { uploadAttachmentFile } from "@/lib/storage/upload-attachment";
-import { uploadCoverImage } from "@/lib/storage/upload-cover-image";
+import { maybeUploadCover } from "@/lib/storage/upload-cover-image";
 
 function readEventFields(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
@@ -23,18 +23,6 @@ function readEventFields(formData: FormData) {
   };
 }
 
-async function maybeUploadCover(
-  supabase: Awaited<ReturnType<typeof getServerSupabase>>,
-  id: string,
-  formData: FormData,
-) {
-  const cover = formData.get("cover_image");
-  if (cover instanceof File && cover.size > 0) {
-    const url = await uploadCoverImage(supabase, "events", id, cover);
-    await supabase.from("events").update({ cover_image_url: url }).eq("id", id);
-  }
-}
-
 export async function createEvent(formData: FormData) {
   const supabase = await getServerSupabase();
   const fields = readEventFields(formData);
@@ -50,7 +38,7 @@ export async function createEvent(formData: FormData) {
   if (attachment instanceof File && attachment.size > 0) {
     await uploadAttachmentFile(supabase, "event", data.id, attachment);
   }
-  await maybeUploadCover(supabase, data.id, formData);
+  await maybeUploadCover(supabase, "events", data.id, formData);
 
   revalidatePath("/eventi");
   revalidatePath("/");
@@ -67,7 +55,7 @@ export async function updateEvent(id: string, formData: FormData) {
     .eq("id", id);
   if (error) throw new Error(error.message);
 
-  await maybeUploadCover(supabase, id, formData);
+  await maybeUploadCover(supabase, "events", id, formData);
 
   revalidatePath("/eventi");
   revalidatePath(`/eventi/${fields.slug}`);

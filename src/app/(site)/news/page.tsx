@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Sparkle } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedNews, type NewsRow } from "@/lib/data/news";
-import { formatDateIt } from "@/lib/utils";
+import { formatDateIt, excerptOf } from "@/lib/utils";
 import { cardClass } from "@/lib/ui";
 
 export const revalidate = 60;
@@ -12,11 +12,6 @@ export const metadata: Metadata = {
   title: "News",
   description: "Comunicazioni e novità dall'ASD La Spotornese.",
 };
-
-function excerptOf(body: string, length = 140) {
-  if (body.length <= length) return body;
-  return body.slice(0, length).trimEnd() + "…";
-}
 
 function NewsCard({ item }: { item: NewsRow }) {
   return (

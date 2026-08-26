@@ -1,20 +1,16 @@
 import Link from "next/link";
-import { Boat, Fish, Trophy, Users } from "@phosphor-icons/react/ssr";
-import { EventStatusBadge } from "@/components/ui/EventStatusBadge";
-import { EventCountdown } from "@/components/site/EventCountdown";
+import { NextEventCard } from "@/components/site/NextEventCard";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
-import { getEventDisplayStatus, getNextUpcomingEvent } from "@/lib/data/events";
+import { getNextUpcomingEvent } from "@/lib/data/events";
 import { getLatestNews, type NewsRow } from "@/lib/data/news";
 import { getPublishedActivities, type ActivityRow } from "@/lib/data/activities";
 import { getPublishedGalleries } from "@/lib/data/galleries";
+import { getActivityStyle } from "@/lib/activity-style";
 import { cardClass } from "@/lib/ui";
-import { formatDateIt } from "@/lib/utils";
+import { formatDateIt, excerptOf } from "@/lib/utils";
 import { colorClass, fontClass, heroTitleSizeClass, bodyTextSizeClass } from "@/lib/text-style-presets";
 
 export const revalidate = 60;
-
-const ACTIVITY_ACCENTS = ["text-accent", "text-accent-teal", "text-accent-gold", "text-accent"];
-const ACTIVITY_ICONS = [Boat, Fish, Trophy, Users];
 
 export default async function HomePage() {
   const [content, nextEvent, latestNews, activities, galleries] = await Promise.all([
@@ -28,8 +24,6 @@ export default async function HomePage() {
   const previewActivities = activities.slice(0, 4);
   const galleryPreview = galleries.filter((g) => g.cover_image_url).slice(0, 3);
   const hasHeroPhoto = Boolean(content.home_hero_image_url);
-  const eventDate = nextEvent ? new Date(nextEvent.event_date) : null;
-  const eventCancelled = nextEvent && getEventDisplayStatus(nextEvent) === "annullato";
   const heroTitleLines = (content.home_hero_title || "ASD LA\nSPOTORNESE").split("\n");
   const heroTitleClass = [
     fontClass(content.home_hero_title_font, "titolo"),
@@ -85,48 +79,9 @@ export default async function HomePage() {
       </div>
 
       {/* Prossimo evento — fuso con l'hero */}
-      {nextEvent && eventDate && (
+      {nextEvent && (
         <div className="bg-primary">
-          <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-y-4 px-6 py-8">
-            <div className="flex items-center gap-5">
-              <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-7 py-4 text-center">
-                <div className="font-mono text-4xl leading-none font-bold text-primary-foreground">
-                  {eventDate.getDate()}
-                </div>
-                <div className="mt-1.5 font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
-                  {eventDate.toLocaleDateString("it-IT", { month: "long" })}
-                </div>
-                <div className="font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
-                  {eventDate.getFullYear()}
-                </div>
-              </div>
-              <div className="min-w-0">
-                <p className="font-mono text-[10px] tracking-widest text-accent uppercase">
-                  Prossimo evento
-                </p>
-                <div className="mt-0.5 flex flex-wrap items-center gap-2">
-                  <Link
-                    href={`/eventi/${nextEvent.slug}`}
-                    className="font-heading text-lg font-bold text-primary-foreground hover:underline"
-                  >
-                    {nextEvent.title}
-                  </Link>
-                  {eventCancelled && <EventStatusBadge status="annullato" />}
-                </div>
-                {(nextEvent.event_time || nextEvent.location) && (
-                  <p className="text-xs text-primary-foreground/55">
-                    {nextEvent.location}
-                    {nextEvent.event_time && nextEvent.location && " · "}
-                    {nextEvent.event_time && `ore ${nextEvent.event_time.slice(0, 5)}`}
-                  </p>
-                )}
-                <Link href={`/eventi/${nextEvent.slug}`} className="inline-block text-xs font-bold text-accent">
-                  Scopri i dettagli →
-                </Link>
-              </div>
-            </div>
-            <EventCountdown eventDate={nextEvent.event_date} eventTime={nextEvent.event_time} />
-          </div>
+          <NextEventCard event={nextEvent} className="mx-auto max-w-5xl px-6 py-8" showDetailsLink />
         </div>
       )}
 
@@ -237,8 +192,7 @@ function ActivityColumn({
   index: number;
   first: boolean;
 }) {
-  const accent = ACTIVITY_ACCENTS[index % ACTIVITY_ACCENTS.length];
-  const Icon = ACTIVITY_ICONS[index % ACTIVITY_ICONS.length];
+  const { accent, Icon } = getActivityStyle(index);
   return (
     <div className={first ? "" : "sm:border-l sm:border-border sm:pl-6"}>
       <div className={`font-mono text-2xl font-bold ${accent}`}>{String(index + 1).padStart(2, "0")}</div>
@@ -252,11 +206,6 @@ function ActivityColumn({
       </Link>
     </div>
   );
-}
-
-function excerptOf(body: string, length = 100) {
-  if (body.length <= length) return body;
-  return body.slice(0, length).trimEnd() + "…";
 }
 
 function NewsPreviewCard({ item }: { item: NewsRow }) {
@@ -278,7 +227,7 @@ function NewsPreviewCard({ item }: { item: NewsRow }) {
         <p className="font-heading font-semibold text-card-foreground group-hover:underline">
           {item.title}
         </p>
-        <p className="line-clamp-2 text-sm text-muted-foreground">{excerptOf(item.body)}</p>
+        <p className="line-clamp-2 text-sm text-muted-foreground">{excerptOf(item.body, 100)}</p>
         {item.featured && (
           <span className="text-xs font-semibold tracking-wide text-accent uppercase">In evidenza</span>
         )}

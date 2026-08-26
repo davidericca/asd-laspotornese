@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getServerSupabase } from "@/lib/supabase/server";
-import { uploadCoverImage } from "@/lib/storage/upload-cover-image";
+import { maybeUploadCover } from "@/lib/storage/upload-cover-image";
 
 function readActivityFields(formData: FormData) {
   return {
@@ -11,18 +11,6 @@ function readActivityFields(formData: FormData) {
     description: String(formData.get("description") ?? "") || null,
     published: formData.get("published") === "on",
   };
-}
-
-async function maybeUploadCover(
-  supabase: Awaited<ReturnType<typeof getServerSupabase>>,
-  id: string,
-  formData: FormData,
-) {
-  const cover = formData.get("cover_image");
-  if (cover instanceof File && cover.size > 0) {
-    const url = await uploadCoverImage(supabase, "activities", id, cover);
-    await supabase.from("activities").update({ cover_image_url: url }).eq("id", id);
-  }
 }
 
 export async function createActivity(formData: FormData) {
@@ -40,7 +28,7 @@ export async function createActivity(formData: FormData) {
     .single();
   if (error) throw new Error(error.message);
 
-  await maybeUploadCover(supabase, data.id, formData);
+  await maybeUploadCover(supabase, "activities", data.id, formData);
 
   revalidatePath("/attivita");
   revalidatePath("/");
@@ -54,7 +42,7 @@ export async function updateActivity(id: string, formData: FormData) {
   const { error } = await supabase.from("activities").update(fields).eq("id", id);
   if (error) throw new Error(error.message);
 
-  await maybeUploadCover(supabase, id, formData);
+  await maybeUploadCover(supabase, "activities", id, formData);
 
   revalidatePath("/attivita");
   revalidatePath("/");
