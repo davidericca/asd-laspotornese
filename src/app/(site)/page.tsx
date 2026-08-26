@@ -73,7 +73,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <div className="relative isolate min-h-[360px] overflow-hidden bg-primary sm:min-h-[400px]">
+      <div className="relative isolate flex min-h-[360px] flex-col justify-end overflow-hidden bg-primary sm:min-h-[400px]">
         {hasHeroPhoto && (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -86,7 +86,7 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,34,48,0.88)_0%,rgba(11,34,48,0.35)_32%,transparent_58%)]" />
           </>
         )}
-        <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-end px-6 pb-10">
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-10">
           <h1 className={`leading-[0.94] font-extrabold text-wrap-balance ${heroTitleClass}`}>
             {heroTitleLines.map((line, i) => (
               <span
