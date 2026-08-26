@@ -16,6 +16,7 @@ export const SITE_CONTENT_KEYS = [
   "chi_siamo",
   "cf_piva",
   "contatti_indirizzo",
+  "contatti_coordinate",
   "contatti_telefono",
   "contatti_email",
   "social_facebook",

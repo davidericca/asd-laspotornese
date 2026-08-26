@@ -182,6 +182,21 @@ export default async function AdminContentPage() {
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
+          Coordinate mappa (opzionale, per far puntare la mappa nel punto esatto)
+          <input
+            type="text"
+            name="contatti_coordinate"
+            placeholder="es. 44.233086, 8.428045"
+            defaultValue={content.contatti_coordinate}
+            className={fieldClass}
+          />
+        </label>
+        <p className="-mt-4 text-xs text-muted-foreground">
+          Su Google Maps: cerca il posto, tieni premuto sul punto esatto, tocca &quot;Condividi&quot;
+          o le coordinate mostrate in basso, e incollale qui. Se lasci vuoto, la mappa cerca
+          l&apos;indirizzo scritto sopra.
+        </p>
+        <label className="flex flex-col gap-1 text-sm">
           Contatti &mdash; telefono
           <input
             type="text"

@@ -55,11 +55,13 @@ export default async function ContattiPage() {
               [INSERIRE indirizzo, email, telefono e mappa]
             </p>
           )}
-        {hasAddress && (
+        {(hasAddress || content.contatti_coordinate) && (
           <iframe
             title="Mappa"
             className="mt-8 aspect-video w-full rounded-lg border border-border"
-            src={`https://www.google.com/maps?q=${encodeURIComponent(content.contatti_indirizzo)}&output=embed`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(
+              content.contatti_coordinate || content.contatti_indirizzo,
+            )}&output=embed`}
             loading="lazy"
           />
         )}
