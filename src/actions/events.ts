@@ -37,10 +37,12 @@ export async function createEvent(formData: FormData) {
   if (error) throw new Error(error.message);
 
   const attachment = formData.get("attachment");
-  if (attachment instanceof File && attachment.size > 0) {
-    await uploadAttachmentFile(supabase, "event", data.id, attachment);
-  }
-  await maybeUploadCover(supabase, "events", data.id, formData);
+  await Promise.all([
+    attachment instanceof File && attachment.size > 0
+      ? uploadAttachmentFile(supabase, "event", data.id, attachment)
+      : null,
+    maybeUploadCover(supabase, "events", data.id, formData),
+  ]);
 
   revalidatePath("/eventi");
   revalidatePath("/");
