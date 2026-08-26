@@ -1,5 +1,5 @@
 import { getAdminSiteContent } from "@/lib/data/site-content";
-import { updateSiteContent, updateHeroImage } from "@/actions/site-content";
+import { updateSiteContent } from "@/actions/site-content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { ImageFocalPointPicker } from "@/components/admin/forms/ImageFocalPointPicker";
 import {
@@ -99,35 +99,29 @@ export default async function AdminContentPage() {
       <p className="mt-2 max-w-lg text-sm text-muted-foreground">
         Le attività ora si gestiscono da &quot;Gestisci attività&quot; nella dashboard, una scheda per volta.
       </p>
-      <form action={updateHeroImage} className="mt-6 flex max-w-lg flex-col gap-3">
-        <label className="flex flex-col gap-2 text-sm">
-          Home &mdash; foto di copertina
-          <input type="file" name="hero_image" accept="image/*" className={fileInputClass} />
-        </label>
-        <p className="-mt-2 text-xs text-muted-foreground">
-          Scegli il file, poi premi &quot;Carica foto&quot; qui sotto: solo allora viene caricato davvero.
-        </p>
-        {content.home_hero_image_url && (
-          <p className="-mt-1 text-xs text-muted-foreground">
-            Foto attuale. Caricandone una nuova la sostituirai.
-          </p>
-        )}
-        <ImageFocalPointPicker
-          positionFieldName="home_hero_image_position"
-          fileFieldName="hero_image"
-          aspect="16 / 7"
-          currentImageUrl={content.home_hero_image_url || null}
-          currentPosition={content.home_hero_image_position || null}
-        />
-        <p className="-mt-1 text-xs font-medium text-accent">
-          Importante: dopo aver cliccato sulla foto, premi il pulsante qui sotto (non &quot;Salva&quot;
-          più in basso, che appartiene ai testi) per salvare la posizione scelta.
-        </p>
-        <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
-          Salva foto e inquadratura
-        </SubmitButton>
-      </form>
-      <form action={updateSiteContent} className="mt-10 flex max-w-lg flex-col gap-6">
+      <form action={updateSiteContent} className="mt-6 flex max-w-lg flex-col gap-6">
+        <div className="flex flex-col gap-3 rounded border border-border p-4">
+          <h2 className="font-heading text-sm font-semibold text-card-foreground">
+            Foto di copertina della home
+          </h2>
+          <label className="flex flex-col gap-2 text-sm">
+            Scegli una nuova foto (opzionale)
+            <input type="file" name="hero_image" accept="image/*" className={fileInputClass} />
+          </label>
+          {content.home_hero_image_url && (
+            <p className="-mt-1 text-xs text-muted-foreground">
+              Foto attuale. Caricandone una nuova la sostituirai.
+            </p>
+          )}
+          <ImageFocalPointPicker
+            positionFieldName="home_hero_image_position"
+            fileFieldName="hero_image"
+            aspect="16 / 7"
+            currentImageUrl={content.home_hero_image_url || null}
+            currentPosition={content.home_hero_image_position || null}
+          />
+        </div>
+
         <label className="flex flex-col gap-1 text-sm">
           Home &mdash; titolo grande sopra la foto
           <textarea
@@ -206,7 +200,7 @@ export default async function AdminContentPage() {
           />
         </label>
         <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
-          Salva
+          Salva tutto
         </SubmitButton>
       </form>
     </div>

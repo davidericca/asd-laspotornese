@@ -7,6 +7,9 @@ import { uploadCoverImage } from "@/lib/storage/upload-cover-image";
 
 const HERO_IMAGE_KEYS = ["home_hero_image_url", "home_hero_image_position"];
 
+// Un unico form/azione per tutti i testi del sito, inclusa la foto hero e la
+// sua inquadratura: prima c'erano due form separati con due bottoni "Salva"
+// diversi, ed era facile salvarne uno pensando di aver salvato anche l'altro.
 export async function updateSiteContent(formData: FormData) {
   const supabase = await getServerSupabase();
 
@@ -14,20 +17,6 @@ export async function updateSiteContent(formData: FormData) {
     key,
     value: String(formData.get(key) ?? ""),
   }));
-
-  const { error } = await supabase.from("site_content").upsert(rows, { onConflict: "key" });
-  if (error) throw new Error(error.message);
-
-  revalidatePath("/");
-  revalidatePath("/chi-siamo");
-  revalidatePath("/attivita");
-  revalidatePath("/contatti");
-}
-
-export async function updateHeroImage(formData: FormData) {
-  const supabase = await getServerSupabase();
-
-  const rows: { key: string; value: string }[] = [];
 
   const file = formData.get("hero_image");
   if (file instanceof File && file.size > 0) {
@@ -40,10 +29,11 @@ export async function updateHeroImage(formData: FormData) {
     rows.push({ key: "home_hero_image_position", value: position });
   }
 
-  if (rows.length > 0) {
-    const { error } = await supabase.from("site_content").upsert(rows, { onConflict: "key" });
-    if (error) throw new Error(error.message);
-  }
+  const { error } = await supabase.from("site_content").upsert(rows, { onConflict: "key" });
+  if (error) throw new Error(error.message);
 
   revalidatePath("/");
+  revalidatePath("/chi-siamo");
+  revalidatePath("/attivita");
+  revalidatePath("/contatti");
 }
