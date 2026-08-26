@@ -34,7 +34,11 @@ export default async function ChiSiamoPage() {
 
   return (
     <>
-      <PageHeader title="Chi siamo" />
+      <PageHeader
+        title="Chi siamo"
+        eyebrow="La società"
+        description="Storia, valori e persone dell'ASD La Spotornese."
+      />
       <div className="mx-auto max-w-5xl px-6 py-16">
         {stats.length > 0 && (
           <div className="mb-12 grid grid-cols-2 gap-6 border-b border-border pb-12 sm:grid-cols-3">
