@@ -73,7 +73,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <div className="relative isolate flex min-h-[360px] flex-col justify-end overflow-hidden bg-primary sm:min-h-[400px]">
+      <div className="relative isolate flex min-h-[360px] flex-col justify-end overflow-hidden bg-primary sm:aspect-[2.6/1] sm:min-h-[420px] sm:max-h-[640px]">
         {hasHeroPhoto && (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
