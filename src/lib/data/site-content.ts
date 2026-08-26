@@ -18,6 +18,9 @@ export const SITE_CONTENT_KEYS = [
   "contatti_indirizzo",
   "contatti_telefono",
   "contatti_email",
+  "social_facebook",
+  "social_instagram",
+  "social_youtube",
 ] as const;
 
 export type SiteContentKey = (typeof SITE_CONTENT_KEYS)[number];

@@ -199,6 +199,41 @@ export default async function AdminContentPage() {
             className={fieldClass}
           />
         </label>
+        <div className="flex flex-col gap-3 rounded border border-border p-4">
+          <h2 className="font-heading text-sm font-semibold text-card-foreground">
+            Social (opzionale, mostrati nel footer solo se compilati)
+          </h2>
+          <label className="flex flex-col gap-1 text-sm">
+            Facebook &mdash; link alla pagina
+            <input
+              type="url"
+              name="social_facebook"
+              placeholder="https://facebook.com/..."
+              defaultValue={content.social_facebook}
+              className={fieldClass}
+            />
+          </label>
+          <label className="flex flex-col gap-1 text-sm">
+            Instagram &mdash; link al profilo
+            <input
+              type="url"
+              name="social_instagram"
+              placeholder="https://instagram.com/..."
+              defaultValue={content.social_instagram}
+              className={fieldClass}
+            />
+          </label>
+          <label className="flex flex-col gap-1 text-sm">
+            YouTube &mdash; link al canale
+            <input
+              type="url"
+              name="social_youtube"
+              placeholder="https://youtube.com/..."
+              defaultValue={content.social_youtube}
+              className={fieldClass}
+            />
+          </label>
+        </div>
         <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
           Salva tutto
         </SubmitButton>

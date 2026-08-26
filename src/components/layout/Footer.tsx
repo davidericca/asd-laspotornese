@@ -1,12 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
-import { EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/ssr";
+import {
+  EnvelopeSimple,
+  FacebookLogo,
+  InstagramLogo,
+  MapPin,
+  Phone,
+  YoutubeLogo,
+} from "@phosphor-icons/react/ssr";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
 
 export async function Footer() {
   const content = await getPublishedSiteContent();
   const hasContactDetails =
     content.contatti_indirizzo || content.contatti_telefono || content.contatti_email;
+  const socialLinks = [
+    { href: content.social_facebook, label: "Facebook", Icon: FacebookLogo },
+    { href: content.social_instagram, label: "Instagram", Icon: InstagramLogo },
+    { href: content.social_youtube, label: "YouTube", Icon: YoutubeLogo },
+  ].filter((link) => link.href);
 
   return (
     <footer className="bg-primary text-primary-foreground/70">
@@ -32,6 +44,22 @@ export async function Footer() {
           <span className="text-center font-heading text-sm font-semibold text-primary-foreground">
             ASD La Spotornese
           </span>
+          {socialLinks.length > 0 && (
+            <div className="mt-1 flex items-center gap-3">
+              {socialLinks.map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-primary-foreground/60 transition hover:text-primary-foreground"
+                >
+                  <Icon size={18} weight="fill" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="sm:text-right">

@@ -13,7 +13,6 @@ import { colorClass, fontClass, heroTitleSizeClass, bodyTextSizeClass } from "@/
 export const revalidate = 60;
 
 const ACTIVITY_ACCENTS = ["text-accent", "text-accent-teal", "text-accent-gold", "text-accent"];
-const FILMSTRIP_WEIGHTS = [0.75, 1.85, 1, 1, 0.75];
 
 function ActivityIcon({ index, className }: { index: number; className?: string }) {
   const icons = [
@@ -53,7 +52,7 @@ export default async function HomePage() {
   ]);
 
   const previewActivities = activities.slice(0, 4);
-  const galleryPreview = galleries.filter((g) => g.cover_image_url).slice(0, 5);
+  const galleryPreview = galleries.filter((g) => g.cover_image_url).slice(0, 3);
   const hasHeroPhoto = Boolean(content.home_hero_image_url);
   const eventDate = nextEvent ? new Date(nextEvent.event_date) : null;
   const eventCancelled = nextEvent && getEventDisplayStatus(nextEvent) === "annullato";
@@ -86,7 +85,7 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,34,48,0.88)_0%,rgba(11,34,48,0.35)_32%,transparent_58%)]" />
           </>
         )}
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-10">
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-16 sm:pb-20">
           <h1 className={`leading-[0.94] font-extrabold text-wrap-balance ${heroTitleClass}`}>
             {heroTitleLines.map((line, i) => (
               <span
@@ -103,7 +102,7 @@ export default async function HomePage() {
           <div className="mt-5">
             <Link
               href="/chi-siamo"
-              className="inline-block rounded-full bg-accent px-6 py-3 font-bold text-accent-foreground transition hover:opacity-90"
+              className="inline-block rounded-lg bg-accent px-6 py-3 text-sm font-bold tracking-wide text-accent-foreground uppercase transition hover:opacity-90"
             >
               Scopri la società →
             </Link>
@@ -186,7 +185,7 @@ export default async function HomePage() {
         </div>
       )}
 
-      {/* Galleria — filmstrip a piena larghezza */}
+      {/* Galleria */}
       {galleryPreview.length > 0 && (
         <div className="bg-primary py-14">
           <div className="mx-auto max-w-5xl px-6">
@@ -203,24 +202,25 @@ export default async function HomePage() {
                 Vedi tutta la galleria →
               </Link>
             </div>
-          </div>
-          <div className="mt-8 flex h-[240px] gap-1">
-            {galleryPreview.map((gallery, index) => (
-              <Link
-                key={gallery.id}
-                href={`/galleria/${gallery.id}`}
-                className="group block h-full min-w-0 overflow-hidden"
-                style={{ flexGrow: FILMSTRIP_WEIGHTS[index % FILMSTRIP_WEIGHTS.length] }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={gallery.cover_image_url!}
-                  alt={gallery.title}
-                  className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
-                  style={{ objectPosition: gallery.cover_image_position || "50% 50%" }}
-                />
-              </Link>
-            ))}
+            <div className="mt-8 grid gap-6 sm:grid-cols-3">
+              {galleryPreview.map((gallery) => (
+                <Link
+                  key={gallery.id}
+                  href={`/galleria/${gallery.id}`}
+                  className={`group block overflow-hidden ${cardClass}`}
+                >
+                  <div className="aspect-[16/10] bg-primary-hover">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={gallery.cover_image_url!}
+                      alt={gallery.title}
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                      style={{ objectPosition: gallery.cover_image_position || "50% 50%" }}
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -279,6 +279,11 @@ function ActivityColumn({
   );
 }
 
+function excerptOf(body: string, length = 100) {
+  if (body.length <= length) return body;
+  return body.slice(0, length).trimEnd() + "…";
+}
+
 function NewsPreviewCard({ item }: { item: NewsRow }) {
   return (
     <Link href={`/news/${item.slug}`} className={`group flex flex-col overflow-hidden ${cardClass}`}>
@@ -298,6 +303,7 @@ function NewsPreviewCard({ item }: { item: NewsRow }) {
         <p className="font-heading font-semibold text-card-foreground group-hover:underline">
           {item.title}
         </p>
+        <p className="line-clamp-2 text-sm text-muted-foreground">{excerptOf(item.body)}</p>
         {item.featured && (
           <span className="text-xs font-semibold tracking-wide text-accent uppercase">In evidenza</span>
         )}

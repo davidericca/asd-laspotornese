@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedGalleries } from "@/lib/data/galleries";
+import { cardClass } from "@/lib/ui";
 
 export const revalidate = 60;
 
@@ -28,7 +29,7 @@ export default async function GalleriaPage() {
               href={`/galleria/${gallery.id}`}
               className="group"
             >
-              <div className="aspect-square overflow-hidden border border-border bg-muted">
+              <div className={`aspect-square overflow-hidden ${cardClass}`}>
                 {gallery.cover_image_url && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
