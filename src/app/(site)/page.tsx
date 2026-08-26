@@ -11,11 +11,6 @@ import { formatDateIt } from "@/lib/utils";
 
 export const revalidate = 60;
 
-const MONTHS_SHORT = [
-  "GEN", "FEB", "MAR", "APR", "MAG", "GIU",
-  "LUG", "AGO", "SET", "OTT", "NOV", "DIC",
-];
-
 const ACTIVITY_ACCENTS = ["text-accent", "text-accent-teal", "text-accent-gold", "text-accent"];
 const FILMSTRIP_WEIGHTS = [0.75, 1.85, 1, 1, 0.75];
 
@@ -65,7 +60,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <div className="relative isolate min-h-[440px] overflow-hidden bg-primary sm:min-h-[520px]">
+      <div className="relative isolate min-h-[360px] overflow-hidden bg-primary sm:min-h-[400px]">
         {hasHeroPhoto && (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -100,13 +95,16 @@ export default async function HomePage() {
       {nextEvent && eventDate && (
         <div className="bg-primary">
           <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-y-4 px-6 py-5">
-            <div className="flex items-center gap-4">
-              <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-4 py-2 text-center">
-                <div className="font-mono text-2xl leading-none font-bold text-primary-foreground">
+            <div className="flex items-center gap-5">
+              <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-6 py-3 text-center">
+                <div className="font-mono text-3xl leading-none font-bold text-primary-foreground">
                   {eventDate.getDate()}
                 </div>
-                <div className="mt-1 font-mono text-[9px] tracking-widest text-primary-foreground/55 uppercase">
-                  {MONTHS_SHORT[eventDate.getMonth()]}
+                <div className="mt-1.5 font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
+                  {eventDate.toLocaleDateString("it-IT", { month: "long" })}
+                </div>
+                <div className="font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
+                  {eventDate.getFullYear()}
                 </div>
               </div>
               <div className="min-w-0">
@@ -186,7 +184,7 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="mt-8 flex h-[220px] gap-1">
+          <div className="mt-8 flex h-[240px] gap-1">
             {galleryPreview.map((gallery, index) => (
               <Link
                 key={gallery.id}
