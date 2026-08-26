@@ -36,4 +36,5 @@ export async function updateSiteContent(formData: FormData) {
   revalidatePath("/chi-siamo");
   revalidatePath("/attivita");
   revalidatePath("/contatti");
+  revalidatePath("/admin/content");
 }
