@@ -82,10 +82,10 @@ export default async function HomePage() {
             <span className="block">ASD LA</span>
             <span className="block text-accent">SPOTORNESE</span>
           </h1>
-          <p className="mt-4 max-w-md text-primary-foreground/85">
+          <p className="mt-3 max-w-md text-primary-foreground/85">
             {content.home_intro || "[INSERIRE presentazione breve dell'associazione]"}
           </p>
-          <div className="mt-6">
+          <div className="mt-5">
             <Link
               href="/attivita"
               className="inline-block rounded-full bg-accent px-6 py-3 font-bold text-accent-foreground transition hover:opacity-90"
@@ -99,38 +99,40 @@ export default async function HomePage() {
       {/* Prossimo evento — fuso con l'hero */}
       {nextEvent && eventDate && (
         <div className="bg-primary">
-          <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-8 gap-y-4 px-6 py-6">
-            <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-4 py-2 text-center">
-              <div className="font-mono text-2xl leading-none font-bold text-primary-foreground">
-                {eventDate.getDate()}
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-y-4 px-6 py-5">
+            <div className="flex items-center gap-4">
+              <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-4 py-2 text-center">
+                <div className="font-mono text-2xl leading-none font-bold text-primary-foreground">
+                  {eventDate.getDate()}
+                </div>
+                <div className="mt-1 font-mono text-[9px] tracking-widest text-primary-foreground/55 uppercase">
+                  {MONTHS_SHORT[eventDate.getMonth()]}
+                </div>
               </div>
-              <div className="mt-1 font-mono text-[9px] tracking-widest text-primary-foreground/55 uppercase">
-                {MONTHS_SHORT[eventDate.getMonth()]}
-              </div>
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="font-mono text-[10px] tracking-widest text-accent uppercase">
-                Prossimo evento
-              </p>
-              <div className="mt-1 flex flex-wrap items-center gap-2">
-                <Link
-                  href={`/eventi/${nextEvent.slug}`}
-                  className="font-heading font-bold text-primary-foreground hover:underline"
-                >
-                  {nextEvent.title}
-                </Link>
-                {eventCancelled && <EventStatusBadge status="annullato" />}
-              </div>
-              {(nextEvent.event_time || nextEvent.location) && (
-                <p className="mt-0.5 text-xs text-primary-foreground/55">
-                  {nextEvent.location}
-                  {nextEvent.event_time && nextEvent.location && " · "}
-                  {nextEvent.event_time && `ore ${nextEvent.event_time.slice(0, 5)}`}
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] tracking-widest text-accent uppercase">
+                  Prossimo evento
                 </p>
-              )}
-              <Link href={`/eventi/${nextEvent.slug}`} className="mt-1 inline-block text-xs font-bold text-accent">
-                Scopri i dettagli →
-              </Link>
+                <div className="mt-0.5 flex flex-wrap items-center gap-2">
+                  <Link
+                    href={`/eventi/${nextEvent.slug}`}
+                    className="font-heading font-bold text-primary-foreground hover:underline"
+                  >
+                    {nextEvent.title}
+                  </Link>
+                  {eventCancelled && <EventStatusBadge status="annullato" />}
+                </div>
+                {(nextEvent.event_time || nextEvent.location) && (
+                  <p className="text-xs text-primary-foreground/55">
+                    {nextEvent.location}
+                    {nextEvent.event_time && nextEvent.location && " · "}
+                    {nextEvent.event_time && `ore ${nextEvent.event_time.slice(0, 5)}`}
+                  </p>
+                )}
+                <Link href={`/eventi/${nextEvent.slug}`} className="inline-block text-xs font-bold text-accent">
+                  Scopri i dettagli →
+                </Link>
+              </div>
             </div>
             <EventCountdown eventDate={nextEvent.event_date} eventTime={nextEvent.event_time} />
           </div>
@@ -246,10 +248,10 @@ function ActivityColumn({
   return (
     <div className={first ? "" : "sm:border-l sm:border-border sm:pl-6"}>
       <div className={`font-mono text-2xl font-bold ${accent}`}>{String(index + 1).padStart(2, "0")}</div>
-      <ActivityIcon index={index} className={`mt-2.5 h-6 w-6 ${accent} opacity-80`} />
-      <h3 className="mt-3 font-heading font-semibold text-card-foreground">{activity.title}</h3>
+      <ActivityIcon index={index} className={`mt-2 h-6 w-6 ${accent} opacity-80`} />
+      <h3 className="mt-2 font-heading font-semibold text-card-foreground">{activity.title}</h3>
       {activity.description && (
-        <p className="mt-1.5 line-clamp-3 text-sm text-muted-foreground">{activity.description}</p>
+        <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">{activity.description}</p>
       )}
       <Link href="/attivita" className="mt-2 inline-block text-xs font-bold text-accent">
         Scopri di più →
