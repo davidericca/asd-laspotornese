@@ -137,7 +137,7 @@ export default async function HomePage() {
             <p className="font-mono text-xs font-bold tracking-widest text-accent uppercase">
               Le nostre attività
             </p>
-            <h2 className="mt-2 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+            <h2 className="mt-2 font-heading text-2xl font-bold text-foreground uppercase sm:text-3xl">
               Viviamo il mare, tutto l&apos;anno
             </h2>
             <div className="mx-auto mt-4 flex items-center justify-center gap-2">
@@ -168,7 +168,7 @@ export default async function HomePage() {
                 <p className="font-mono text-xs font-bold tracking-widest text-accent uppercase">
                   Galleria
                 </p>
-                <h2 className="mt-2 font-heading text-2xl font-bold text-primary-foreground sm:text-3xl">
+                <h2 className="mt-2 font-heading text-2xl font-bold text-primary-foreground uppercase sm:text-3xl">
                   I nostri momenti
                 </h2>
               </div>
@@ -208,7 +208,7 @@ export default async function HomePage() {
                 <p className="font-mono text-xs font-bold tracking-widest text-accent uppercase">
                   Ultime news
                 </p>
-                <h2 className="mt-2 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+                <h2 className="mt-2 font-heading text-2xl font-bold text-foreground uppercase sm:text-3xl">
                   Novità e comunicazioni
                 </h2>
               </div>
