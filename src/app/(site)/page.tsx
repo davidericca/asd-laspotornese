@@ -8,6 +8,7 @@ import { getPublishedActivities, type ActivityRow } from "@/lib/data/activities"
 import { getPublishedGalleries } from "@/lib/data/galleries";
 import { cardClass } from "@/lib/ui";
 import { formatDateIt } from "@/lib/utils";
+import { colorClass, fontClass, heroTitleSizeClass, bodyTextSizeClass } from "@/lib/text-style-presets";
 
 export const revalidate = 60;
 
@@ -57,6 +58,16 @@ export default async function HomePage() {
   const eventDate = nextEvent ? new Date(nextEvent.event_date) : null;
   const eventCancelled = nextEvent && getEventDisplayStatus(nextEvent) === "annullato";
   const heroTitleLines = (content.home_hero_title || "ASD LA\nSPOTORNESE").split("\n");
+  const heroTitleClass = [
+    fontClass(content.home_hero_title_font, "titolo"),
+    heroTitleSizeClass(content.home_hero_title_size),
+    colorClass(content.home_hero_title_color || "bianco"),
+  ].join(" ");
+  const heroIntroClass = [
+    fontClass(content.home_intro_font, "testo"),
+    bodyTextSizeClass(content.home_intro_size),
+    colorClass(content.home_intro_color || "bianco"),
+  ].join(" ");
 
   return (
     <div>
@@ -75,14 +86,14 @@ export default async function HomePage() {
           </>
         )}
         <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-end px-6 pb-10">
-          <h1 className="font-heading text-[clamp(3rem,9vw,6rem)] leading-[0.94] font-extrabold text-primary-foreground text-wrap-balance">
+          <h1 className={`leading-[0.94] font-extrabold text-wrap-balance ${heroTitleClass}`}>
             {heroTitleLines.map((line, i) => (
-              <span key={i} className={`block ${i === heroTitleLines.length - 1 ? "text-accent" : ""}`}>
+              <span key={i} className="block">
                 {line}
               </span>
             ))}
           </h1>
-          <p className="mt-3 max-w-md whitespace-pre-line text-primary-foreground/85">
+          <p className={`mt-3 max-w-md whitespace-pre-line ${heroIntroClass}`}>
             {content.home_intro || "[INSERIRE presentazione breve dell'associazione]"}
           </p>
           <div className="mt-5">

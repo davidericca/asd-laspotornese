@@ -2,7 +2,72 @@ import { getAdminSiteContent } from "@/lib/data/site-content";
 import { updateSiteContent, updateHeroImage } from "@/actions/site-content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { ImageFocalPointPicker } from "@/components/admin/forms/ImageFocalPointPicker";
+import {
+  COLOR_LABELS,
+  FONT_LABELS,
+  HERO_SIZE_LABELS,
+  BODY_SIZE_LABELS,
+} from "@/lib/text-style-presets";
 import { fileInputClass } from "@/lib/ui";
+
+const selectClass = "rounded border border-border bg-transparent px-3 py-2 text-sm";
+
+function StyleSelects({
+  namePrefix,
+  content,
+  sizeLabels,
+}: {
+  namePrefix: "home_hero_title" | "home_intro";
+  content: Record<string, string>;
+  sizeLabels: Record<string, string>;
+}) {
+  return (
+    <div className="grid grid-cols-3 gap-3">
+      <label className="flex flex-col gap-1 text-xs text-muted-foreground">
+        Colore
+        <select
+          name={`${namePrefix}_color`}
+          defaultValue={content[`${namePrefix}_color`] || "bianco"}
+          className={selectClass}
+        >
+          {Object.entries(COLOR_LABELS).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="flex flex-col gap-1 text-xs text-muted-foreground">
+        Font
+        <select
+          name={`${namePrefix}_font`}
+          defaultValue={content[`${namePrefix}_font`] || (namePrefix === "home_hero_title" ? "titolo" : "testo")}
+          className={selectClass}
+        >
+          {Object.entries(FONT_LABELS).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="flex flex-col gap-1 text-xs text-muted-foreground">
+        Dimensione
+        <select
+          name={`${namePrefix}_size`}
+          defaultValue={content[`${namePrefix}_size`] || "medio"}
+          className={selectClass}
+        >
+          {Object.entries(sizeLabels).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </label>
+    </div>
+  );
+}
 
 const fieldClass =
   "rounded border border-border bg-transparent px-3 py-2";
@@ -56,9 +121,10 @@ export default async function AdminContentPage() {
           />
         </label>
         <p className="-mt-4 text-xs text-muted-foreground">
-          Vai a capo per spezzare il titolo su più righe: l&apos;ultima riga viene mostrata in
-          arancione. Lascia vuoto per usare &quot;ASD La Spotornese&quot;.
+          Vai a capo per spezzare il titolo su più righe. Lascia vuoto per usare
+          &quot;ASD La Spotornese&quot;.
         </p>
+        <StyleSelects namePrefix="home_hero_title" content={content} sizeLabels={HERO_SIZE_LABELS} />
         <label className="flex flex-col gap-1 text-sm">
           Home &mdash; presentazione
           <textarea
@@ -68,6 +134,7 @@ export default async function AdminContentPage() {
             className={fieldClass}
           />
         </label>
+        <StyleSelects namePrefix="home_intro" content={content} sizeLabels={BODY_SIZE_LABELS} />
         <label className="flex flex-col gap-1 text-sm">
           Chi siamo
           <textarea
