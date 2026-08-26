@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Boat, Fish, Trophy, Users } from "@phosphor-icons/react/ssr";
 import { EventStatusBadge } from "@/components/ui/EventStatusBadge";
 import { EventCountdown } from "@/components/site/EventCountdown";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
@@ -13,34 +14,7 @@ import { colorClass, fontClass, heroTitleSizeClass, bodyTextSizeClass } from "@/
 export const revalidate = 60;
 
 const ACTIVITY_ACCENTS = ["text-accent", "text-accent-teal", "text-accent-gold", "text-accent"];
-
-function ActivityIcon({ index, className }: { index: number; className?: string }) {
-  const icons = [
-    // barca
-    <path key="boat" d="M3 18h18M5 18l1-7h12l1 7M8 11V6h8v5" strokeLinecap="round" strokeLinejoin="round" />,
-    // pesce
-    <path key="fish" d="M3 12c3-4 6-6 9-6s6 2 9 6c-3 4-6 6-9 6s-6-2-9-6Z" strokeLinecap="round" strokeLinejoin="round" />,
-    // trofeo
-    <path
-      key="trophy"
-      d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4ZM5 6H3v2a3 3 0 0 0 3 3M19 6h2v2a3 3 0 0 1-3 3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />,
-    // persone
-    <path
-      key="people"
-      d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7M17 8a3 3 0 1 0 0-6M22 21c0-3-1.8-5.5-4-6.4"
-      strokeLinecap="round"
-    />,
-  ];
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className={className}>
-      {index % icons.length === 3 && <circle cx="9" cy="8" r="3" stroke="currentColor" />}
-      {icons[index % icons.length]}
-    </svg>
-  );
-}
+const ACTIVITY_ICONS = [Boat, Fish, Trophy, Users];
 
 export default async function HomePage() {
   const [content, nextEvent, latestNews, activities, galleries] = await Promise.all([
@@ -264,10 +238,11 @@ function ActivityColumn({
   first: boolean;
 }) {
   const accent = ACTIVITY_ACCENTS[index % ACTIVITY_ACCENTS.length];
+  const Icon = ACTIVITY_ICONS[index % ACTIVITY_ICONS.length];
   return (
     <div className={first ? "" : "sm:border-l sm:border-border sm:pl-6"}>
       <div className={`font-mono text-2xl font-bold ${accent}`}>{String(index + 1).padStart(2, "0")}</div>
-      <ActivityIcon index={index} className={`mt-2 h-6 w-6 ${accent} opacity-80`} />
+      <Icon size={24} className={`mt-2 ${accent} opacity-80`} aria-hidden="true" />
       <h3 className="mt-2 font-heading font-semibold text-card-foreground">{activity.title}</h3>
       {activity.description && (
         <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">{activity.description}</p>
