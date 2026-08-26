@@ -16,15 +16,17 @@ function StyleSelects({
   namePrefix,
   content,
   sizeLabels,
+  secondColor,
 }: {
   namePrefix: "home_hero_title" | "home_intro";
   content: Record<string, string>;
   sizeLabels: Record<string, string>;
+  secondColor?: boolean;
 }) {
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className={`grid gap-3 ${secondColor ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3"}`}>
       <label className="flex flex-col gap-1 text-xs text-muted-foreground">
-        Colore
+        {secondColor ? "Colore prima riga" : "Colore"}
         <select
           name={`${namePrefix}_color`}
           defaultValue={content[`${namePrefix}_color`] || "bianco"}
@@ -37,6 +39,22 @@ function StyleSelects({
           ))}
         </select>
       </label>
+      {secondColor && (
+        <label className="flex flex-col gap-1 text-xs text-muted-foreground">
+          Colore ultima riga
+          <select
+            name={`${namePrefix}_color_2`}
+            defaultValue={content[`${namePrefix}_color_2`] || "arancione"}
+            className={selectClass}
+          >
+            {Object.entries(COLOR_LABELS).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       <label className="flex flex-col gap-1 text-xs text-muted-foreground">
         Font
         <select
@@ -121,10 +139,17 @@ export default async function AdminContentPage() {
           />
         </label>
         <p className="-mt-4 text-xs text-muted-foreground">
-          Vai a capo per spezzare il titolo su più righe. Lascia vuoto per usare
+          Vai a capo per spezzare il titolo su più righe. &quot;Colore prima riga&quot; si applica a
+          tutte le righe tranne l&apos;ultima, che usa &quot;Colore ultima riga&quot;. Con una sola
+          riga si applica solo il colore dell&apos;ultima riga. Lascia vuoto per usare
           &quot;ASD La Spotornese&quot;.
         </p>
-        <StyleSelects namePrefix="home_hero_title" content={content} sizeLabels={HERO_SIZE_LABELS} />
+        <StyleSelects
+          namePrefix="home_hero_title"
+          content={content}
+          sizeLabels={HERO_SIZE_LABELS}
+          secondColor
+        />
         <label className="flex flex-col gap-1 text-sm">
           Home &mdash; presentazione
           <textarea

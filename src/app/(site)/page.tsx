@@ -61,8 +61,9 @@ export default async function HomePage() {
   const heroTitleClass = [
     fontClass(content.home_hero_title_font, "titolo"),
     heroTitleSizeClass(content.home_hero_title_size),
-    colorClass(content.home_hero_title_color || "bianco"),
   ].join(" ");
+  const heroTitleColor1 = colorClass(content.home_hero_title_color || "bianco");
+  const heroTitleColor2 = colorClass(content.home_hero_title_color_2 || "arancione");
   const heroIntroClass = [
     fontClass(content.home_intro_font, "testo"),
     bodyTextSizeClass(content.home_intro_size),
@@ -88,7 +89,10 @@ export default async function HomePage() {
         <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-end px-6 pb-10">
           <h1 className={`leading-[0.94] font-extrabold text-wrap-balance ${heroTitleClass}`}>
             {heroTitleLines.map((line, i) => (
-              <span key={i} className="block">
+              <span
+                key={i}
+                className={`block ${i === heroTitleLines.length - 1 ? heroTitleColor2 : heroTitleColor1}`}
+              >
                 {line}
               </span>
             ))}

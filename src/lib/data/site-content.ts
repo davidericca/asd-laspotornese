@@ -8,6 +8,7 @@ export const SITE_CONTENT_KEYS = [
   "home_intro_size",
   "home_hero_title",
   "home_hero_title_color",
+  "home_hero_title_color_2",
   "home_hero_title_font",
   "home_hero_title_size",
   "home_hero_image_url",

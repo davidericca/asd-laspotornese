@@ -17,15 +17,19 @@ export const TEXT_FONT_PRESETS = {
 } as const;
 
 export const HERO_TITLE_SIZE_PRESETS = {
+  "molto-piccolo": "text-[clamp(1.6rem,4vw,2.4rem)]",
   piccolo: "text-[clamp(2rem,6vw,3.5rem)]",
   medio: "text-[clamp(3rem,9vw,6rem)]",
   grande: "text-[clamp(3.5rem,11vw,7.5rem)]",
+  "molto-grande": "text-[clamp(4rem,13vw,9rem)]",
 } as const;
 
 export const BODY_TEXT_SIZE_PRESETS = {
+  "molto-piccolo": "text-xs",
   piccolo: "text-sm",
   medio: "text-base",
   grande: "text-lg",
+  "molto-grande": "text-xl",
 } as const;
 
 export type TextColorKey = keyof typeof TEXT_COLOR_PRESETS;
@@ -47,15 +51,19 @@ export const FONT_LABELS: Record<TextFontKey, string> = {
 };
 
 export const HERO_SIZE_LABELS: Record<HeroTitleSizeKey, string> = {
-  piccolo: "Piccolo",
-  medio: "Medio (attuale)",
-  grande: "Grande",
+  "molto-piccolo": "Molto piccolo (circa 38px)",
+  piccolo: "Piccolo (circa 56px)",
+  medio: "Medio (circa 96px) — attuale",
+  grande: "Grande (circa 120px)",
+  "molto-grande": "Molto grande (circa 144px)",
 };
 
 export const BODY_SIZE_LABELS: Record<BodyTextSizeKey, string> = {
-  piccolo: "Piccolo",
-  medio: "Medio (attuale)",
-  grande: "Grande",
+  "molto-piccolo": "Molto piccolo (12px)",
+  piccolo: "Piccolo (14px)",
+  medio: "Medio (16px) — attuale",
+  grande: "Grande (18px)",
+  "molto-grande": "Molto grande (20px)",
 };
 
 function pick<T extends Record<string, string>>(map: T, value: string, fallback: keyof T): T[keyof T] {
