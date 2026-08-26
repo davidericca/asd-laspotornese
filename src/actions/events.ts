@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getServerSupabase } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils";
+import { ensureUniqueSlug } from "@/lib/ensure-unique-slug";
 import { uploadAttachmentFile } from "@/lib/storage/upload-attachment";
 import { maybeUploadCover } from "@/lib/storage/upload-cover-image";
 
@@ -26,6 +27,7 @@ function readEventFields(formData: FormData) {
 export async function createEvent(formData: FormData) {
   const supabase = await getServerSupabase();
   const fields = readEventFields(formData);
+  fields.slug = await ensureUniqueSlug(supabase, "events", fields.slug);
 
   const { data, error } = await supabase
     .from("events")
@@ -48,6 +50,7 @@ export async function createEvent(formData: FormData) {
 export async function updateEvent(id: string, formData: FormData) {
   const supabase = await getServerSupabase();
   const fields = readEventFields(formData);
+  fields.slug = await ensureUniqueSlug(supabase, "events", fields.slug, id);
 
   const { error } = await supabase
     .from("events")

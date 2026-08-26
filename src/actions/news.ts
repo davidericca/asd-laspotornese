@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getServerSupabase } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils";
+import { ensureUniqueSlug } from "@/lib/ensure-unique-slug";
 import { uploadAttachmentFile } from "@/lib/storage/upload-attachment";
 import { maybeUploadCover } from "@/lib/storage/upload-cover-image";
 
@@ -22,6 +23,7 @@ function readNewsFields(formData: FormData) {
 export async function createNews(formData: FormData) {
   const supabase = await getServerSupabase();
   const fields = readNewsFields(formData);
+  fields.slug = await ensureUniqueSlug(supabase, "news", fields.slug);
 
   const { data, error } = await supabase
     .from("news")
@@ -44,6 +46,7 @@ export async function createNews(formData: FormData) {
 export async function updateNews(id: string, formData: FormData) {
   const supabase = await getServerSupabase();
   const fields = readNewsFields(formData);
+  fields.slug = await ensureUniqueSlug(supabase, "news", fields.slug, id);
 
   const { error } = await supabase.from("news").update(fields).eq("id", id);
   if (error) throw new Error(error.message);
