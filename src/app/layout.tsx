@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk, Karla, Space_Mono } from "next/font/google";
+import { Manrope, Space_Mono } from "next/font/google";
 import "./globals.css";
 
-const schibstedGrotesk = Schibsted_Grotesk({
-  variable: "--font-schibsted-grotesk",
-  weight: ["600", "700"],
-  subsets: ["latin"],
-});
-
-const karla = Karla({
-  variable: "--font-karla",
-  weight: ["400", "500", "700"],
+const manrope = Manrope({
+  variable: "--font-manrope",
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
 
@@ -38,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="it"
-      className={`${schibstedGrotesk.variable} ${karla.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

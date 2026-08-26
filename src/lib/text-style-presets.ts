@@ -45,8 +45,8 @@ export const COLOR_LABELS: Record<TextColorKey, string> = {
 };
 
 export const FONT_LABELS: Record<TextFontKey, string> = {
-  titolo: "Schibsted Grotesk (titoli)",
-  testo: "Karla (testo)",
+  titolo: "Manrope (titoli)",
+  testo: "Manrope (testo)",
   mono: "Space Mono (dati)",
 };
 
