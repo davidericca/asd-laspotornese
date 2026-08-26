@@ -47,7 +47,11 @@ export default async function AttivitaPage() {
 
   return (
     <>
-      <PageHeader title="Attività" description="Le attività proposte dall'associazione." />
+      <PageHeader
+        title="Attività"
+        eyebrow="Le nostre attività"
+        description="Le attività proposte dall'associazione."
+      />
       <div className="mx-auto max-w-5xl px-6 py-16">
         <div className="grid gap-6 sm:grid-cols-2">
           {activities.map((activity, index) => (

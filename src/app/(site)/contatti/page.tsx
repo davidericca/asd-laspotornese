@@ -22,7 +22,11 @@ export default async function ContattiPage() {
 
   return (
     <>
-      <PageHeader title="Contatti" description="Come contattare l'associazione." />
+      <PageHeader
+        title="Contatti"
+        eyebrow="Recapiti"
+        description="Come contattare l'associazione."
+      />
       <div className="mx-auto max-w-5xl px-6 py-16">
         <div className={`grid gap-8 ${hasMap ? "lg:grid-cols-[360px_1fr]" : ""}`}>
           <dl className={`flex h-fit flex-col gap-4 p-7 text-sm ${cardClass}`}>
