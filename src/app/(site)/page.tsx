@@ -138,7 +138,7 @@ export default async function HomePage() {
               Le nostre attività
             </p>
             <h2 className="mt-2 font-heading text-2xl font-bold text-foreground sm:text-3xl">
-              Cosa facciamo tutto l&apos;anno
+              Viviamo il mare, tutto l&apos;anno
             </h2>
             <div className="mx-auto mt-4 flex items-center justify-center gap-2">
               <span className="h-px w-9 bg-border" />
