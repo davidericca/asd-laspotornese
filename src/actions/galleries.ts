@@ -9,6 +9,10 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 // Le foto vengono ridimensionate e convertite in WebP prima dell'upload:
 // riduce drasticamente peso e tempo di caricamento delle pagine pubbliche.
+// Elaborate in parallelo (non una alla volta) per stare sotto il tempo
+// massimo di una funzione server: con piu' foto grandi in sequenza si
+// rischiava di superarlo, causando un errore mostrato al salvataggio anche
+// se poi le foto risultavano comunque caricate.
 async function uploadFilesToGallery(
   supabase: SupabaseClient,
   galleryId: string,
@@ -18,36 +22,37 @@ async function uploadFilesToGallery(
     .from("images")
     .select("*", { count: "exact", head: true })
     .eq("gallery_id", galleryId);
-  let position = count ?? 0;
+  const startPosition = count ?? 0;
 
-  for (const file of files) {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const optimized = await sharp(buffer)
-      .resize({ width: 1600, withoutEnlargement: true })
-      .webp({ quality: 80 })
-      .toBuffer();
+  const uploaded = await Promise.all(
+    files.map(async (file, index) => {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const optimized = await sharp(buffer)
+        .resize({ width: 1600, withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toBuffer();
 
-    const path = `${galleryId}/${randomUUID()}.webp`;
-    const { error: uploadError } = await supabase.storage
-      .from("images")
-      .upload(path, optimized, { contentType: "image/webp" });
-    if (uploadError) throw new Error(uploadError.message);
+      const path = `${galleryId}/${randomUUID()}.webp`;
+      const { error: uploadError } = await supabase.storage
+        .from("images")
+        .upload(path, optimized, { contentType: "image/webp" });
+      if (uploadError) throw new Error(uploadError.message);
 
-    const { data: publicUrl } = supabase.storage.from("images").getPublicUrl(path);
+      const { data: publicUrl } = supabase.storage.from("images").getPublicUrl(path);
+      return { url: publicUrl.publicUrl, position: startPosition + index };
+    }),
+  );
 
-    const { error: insertError } = await supabase.from("images").insert({
-      gallery_id: galleryId,
-      url: publicUrl.publicUrl,
-      position: position++,
-    });
-    if (insertError) throw new Error(insertError.message);
+  const { error: insertError } = await supabase
+    .from("images")
+    .insert(uploaded.map(({ url, position }) => ({ gallery_id: galleryId, url, position })));
+  if (insertError) throw new Error(insertError.message);
 
-    if (position === 1) {
-      await supabase
-        .from("galleries")
-        .update({ cover_image_url: publicUrl.publicUrl })
-        .eq("id", galleryId);
-    }
+  if (startPosition === 0 && uploaded.length > 0) {
+    await supabase
+      .from("galleries")
+      .update({ cover_image_url: uploaded[0].url })
+      .eq("id", galleryId);
   }
 }
 
@@ -72,6 +77,19 @@ export async function createGallery(formData: FormData) {
 
   revalidatePath("/galleria");
   redirect("/admin/galleries");
+}
+
+export async function updateGallery(id: string, formData: FormData) {
+  const supabase = await getServerSupabase();
+  const title = String(formData.get("title") ?? "").trim();
+  const description = String(formData.get("description") ?? "") || null;
+
+  const { error } = await supabase.from("galleries").update({ title, description }).eq("id", id);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/galleria");
+  revalidatePath(`/admin/galleries/${id}`);
+  revalidatePath("/");
 }
 
 export async function deleteGallery(id: string) {

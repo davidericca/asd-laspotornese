@@ -1,5 +1,11 @@
 import { getAdminGalleryWithImages } from "@/lib/data/galleries";
-import { uploadImages, deleteImage, deleteGallery, updateGalleryCoverPosition } from "@/actions/galleries";
+import {
+  uploadImages,
+  deleteImage,
+  deleteGallery,
+  updateGallery,
+  updateGalleryCoverPosition,
+} from "@/actions/galleries";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { ImageFocalPointPicker } from "@/components/admin/forms/ImageFocalPointPicker";
 import { fileInputClass } from "@/lib/ui";
@@ -12,8 +18,31 @@ export default async function EditGalleryPage({
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <h1 className="font-heading text-2xl font-bold">{gallery.title}</h1>
+      <div className="flex items-start justify-between gap-4">
+        <form action={updateGallery.bind(null, id)} className="flex max-w-sm flex-1 flex-col gap-3">
+          <label className="flex flex-col gap-1 text-sm">
+            Titolo
+            <input
+              type="text"
+              name="title"
+              required
+              defaultValue={gallery.title}
+              className="rounded border border-border bg-transparent px-3 py-2"
+            />
+          </label>
+          <label className="flex flex-col gap-1 text-sm">
+            Descrizione (opzionale)
+            <textarea
+              name="description"
+              rows={2}
+              defaultValue={gallery.description ?? ""}
+              className="rounded border border-border bg-transparent px-3 py-2"
+            />
+          </label>
+          <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
+            Salva
+          </SubmitButton>
+        </form>
         <form action={deleteGallery.bind(null, id)}>
           <SubmitButton className="text-sm text-red-600 hover:underline">
             Elimina galleria
