@@ -102,7 +102,7 @@ export default async function HomePage() {
           <div className="mt-5">
             <Link
               href="/chi-siamo"
-              className="inline-block rounded-lg bg-accent px-6 py-3 text-sm font-bold tracking-wide text-accent-foreground uppercase transition hover:opacity-90"
+              className="inline-block rounded-lg bg-accent px-6 py-3 text-sm font-bold tracking-wide text-accent-foreground uppercase transition hover:opacity-90 active:scale-[0.97]"
             >
               Scopri la società →
             </Link>

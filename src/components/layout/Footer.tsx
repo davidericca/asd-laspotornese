@@ -97,7 +97,7 @@ export async function Footer() {
       </div>
 
       <div className="border-t border-primary-foreground/10">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-6 py-4 font-mono text-xs text-primary-foreground/45">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-6 py-4 font-mono text-xs text-primary-foreground/55">
           <span>
             &copy; {new Date().getFullYear()} ASD La Spotornese
             {content.cf_piva && ` · P.IVA ${content.cf_piva}`}
