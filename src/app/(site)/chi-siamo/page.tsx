@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { EnvelopeSimple, IdentificationCard, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getPublishedSiteContent } from "@/lib/data/site-content";
+import { getPublishedActivities } from "@/lib/data/activities";
+import { getPublishedEvents } from "@/lib/data/events";
+import { getPublishedGalleries } from "@/lib/data/galleries";
 import { cardClass } from "@/lib/ui";
 
 export const revalidate = 60;
@@ -12,17 +15,39 @@ export const metadata: Metadata = {
 };
 
 export default async function ChiSiamoPage() {
-  const content = await getPublishedSiteContent();
+  const [content, activities, events, galleries] = await Promise.all([
+    getPublishedSiteContent(),
+    getPublishedActivities(),
+    getPublishedEvents(),
+    getPublishedGalleries(),
+  ]);
   const hasInfo =
     content.contatti_indirizzo ||
     content.cf_piva ||
     content.contatti_email ||
     content.contatti_telefono;
+  const stats = [
+    { value: activities.length, label: "Attività proposte" },
+    { value: events.length, label: "Eventi organizzati" },
+    { value: galleries.length, label: "Gallerie fotografiche" },
+  ].filter((stat) => stat.value > 0);
 
   return (
     <>
       <PageHeader title="Chi siamo" />
       <div className="mx-auto max-w-5xl px-6 py-16">
+        {stats.length > 0 && (
+          <div className="mb-12 grid grid-cols-2 gap-6 border-b border-border pb-12 sm:grid-cols-3">
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <div className="font-mono text-3xl font-bold text-accent sm:text-4xl">
+                  {stat.value}
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="grid gap-10 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <p className="leading-relaxed whitespace-pre-line text-foreground">

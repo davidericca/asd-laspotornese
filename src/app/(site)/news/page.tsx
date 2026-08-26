@@ -54,8 +54,52 @@ function NewsCard({ item }: { item: NewsRow }) {
   );
 }
 
+function NewsSpotlight({ item }: { item: NewsRow }) {
+  return (
+    <Link
+      href={`/news/${item.slug}`}
+      className={`group mb-12 grid overflow-hidden sm:grid-cols-2 ${cardClass}`}
+    >
+      {item.cover_image_url ? (
+        <div className="aspect-[16/10] bg-muted sm:aspect-auto">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={item.cover_image_url}
+            alt=""
+            className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+            style={{ objectPosition: item.cover_image_position || "50% 50%" }}
+          />
+        </div>
+      ) : (
+        <div className="hidden bg-primary sm:block" />
+      )}
+      <div className="flex flex-col gap-3 p-7 sm:justify-center">
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-xs text-muted-foreground">
+            {formatDateIt(item.created_at)}
+          </span>
+          {item.featured && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-medium text-accent-foreground">
+              <Sparkle size={12} weight="fill" aria-hidden="true" />
+              In evidenza
+            </span>
+          )}
+        </div>
+        <p className="font-heading text-2xl font-bold text-card-foreground group-hover:underline">
+          {item.title}
+        </p>
+        <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+          {excerptOf(item.body, 220)}
+        </p>
+        <span className="text-sm font-bold text-primary">Leggi tutto →</span>
+      </div>
+    </Link>
+  );
+}
+
 export default async function NewsPage() {
   const news = await getPublishedNews();
+  const [latest, ...rest] = news;
 
   return (
     <>
@@ -65,8 +109,9 @@ export default async function NewsPage() {
         description="Tutte le novità e gli aggiornamenti della società."
       />
       <div className="mx-auto max-w-5xl px-6 py-16">
+        {latest && <NewsSpotlight item={latest} />}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {news.map((item) => (
+          {rest.map((item) => (
             <NewsCard key={item.id} item={item} />
           ))}
         </div>
