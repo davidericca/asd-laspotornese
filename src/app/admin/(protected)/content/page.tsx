@@ -36,8 +36,12 @@ export default async function AdminContentPage() {
           currentImageUrl={content.home_hero_image_url || null}
           currentPosition={content.home_hero_image_position || null}
         />
+        <p className="-mt-1 text-xs font-medium text-accent">
+          Importante: dopo aver cliccato sulla foto, premi il pulsante qui sotto (non &quot;Salva&quot;
+          più in basso, che appartiene ai testi) per salvare la posizione scelta.
+        </p>
         <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
-          Carica foto
+          Salva foto e inquadratura
         </SubmitButton>
       </form>
       <form action={updateSiteContent} className="mt-10 flex max-w-lg flex-col gap-6">
