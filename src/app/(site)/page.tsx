@@ -69,11 +69,11 @@ export default async function HomePage() {
               alt=""
               className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/55 to-transparent" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,34,48,0.88)_0%,rgba(11,34,48,0.35)_32%,transparent_58%)]" />
           </>
         )}
         <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-end px-6 pb-10">
-          <h1 className="font-heading text-[clamp(2.6rem,7vw,4.5rem)] leading-[0.96] font-extrabold text-primary-foreground text-wrap-balance">
+          <h1 className="font-heading text-[clamp(3rem,9vw,6rem)] leading-[0.94] font-extrabold text-primary-foreground text-wrap-balance">
             <span className="block">ASD LA</span>
             <span className="block text-accent">SPOTORNESE</span>
           </h1>
@@ -94,10 +94,10 @@ export default async function HomePage() {
       {/* Prossimo evento — fuso con l'hero */}
       {nextEvent && eventDate && (
         <div className="bg-primary">
-          <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-y-4 px-6 py-5">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-y-4 px-6 py-8">
             <div className="flex items-center gap-5">
-              <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-6 py-3 text-center">
-                <div className="font-mono text-3xl leading-none font-bold text-primary-foreground">
+              <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-7 py-4 text-center">
+                <div className="font-mono text-4xl leading-none font-bold text-primary-foreground">
                   {eventDate.getDate()}
                 </div>
                 <div className="mt-1.5 font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
@@ -114,7 +114,7 @@ export default async function HomePage() {
                 <div className="mt-0.5 flex flex-wrap items-center gap-2">
                   <Link
                     href={`/eventi/${nextEvent.slug}`}
-                    className="font-heading font-bold text-primary-foreground hover:underline"
+                    className="font-heading text-lg font-bold text-primary-foreground hover:underline"
                   >
                     {nextEvent.title}
                   </Link>
