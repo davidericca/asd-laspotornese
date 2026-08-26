@@ -6,6 +6,7 @@ export type GalleryRow = {
   title: string;
   description: string | null;
   cover_image_url: string | null;
+  cover_image_position: string | null;
 };
 
 export type ImageRow = {

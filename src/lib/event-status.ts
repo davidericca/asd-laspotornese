@@ -8,6 +8,7 @@ export type EventRow = {
   status: "programmato" | "in corso" | "concluso" | "annullato";
   description: string | null;
   cover_image_url: string | null;
+  cover_image_position: string | null;
   gallery_id: string | null;
   published: boolean;
 };

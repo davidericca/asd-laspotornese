@@ -1,6 +1,7 @@
 import type { EventRow } from "@/lib/data/events";
 import type { GalleryRow } from "@/lib/data/galleries";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { ImageFocalPointPicker } from "@/components/admin/forms/ImageFocalPointPicker";
 import { fileInputClass } from "@/lib/ui";
 
 export function EventForm({
@@ -103,18 +104,16 @@ export function EventForm({
         Scegli il file, poi premi &quot;Salva&quot; qui sotto: solo allora viene caricato davvero.
       </p>
       {defaultValues?.cover_image_url && (
-        <div className="flex items-center gap-3">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={defaultValues.cover_image_url}
-            alt=""
-            className="h-16 w-24 shrink-0 object-cover"
-          />
-          <p className="text-xs text-muted-foreground">
-            Foto attuale. Caricandone una nuova la sostituirai.
-          </p>
-        </div>
+        <p className="-mt-1 text-xs text-muted-foreground">
+          Foto attuale. Caricandone una nuova la sostituirai.
+        </p>
       )}
+      <ImageFocalPointPicker
+        positionFieldName="cover_image_position"
+        fileFieldName="cover_image"
+        currentImageUrl={defaultValues?.cover_image_url ?? null}
+        currentPosition={defaultValues?.cover_image_position ?? null}
+      />
       {showAttachmentField && (
         <label className="flex flex-col gap-2 text-sm">
           Allegato PDF (opzionale)

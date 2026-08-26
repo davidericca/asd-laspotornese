@@ -7,6 +7,7 @@ export type NewsRow = {
   slug: string;
   body: string;
   cover_image_url: string | null;
+  cover_image_position: string | null;
   featured: boolean;
   published: boolean;
   created_at: string;

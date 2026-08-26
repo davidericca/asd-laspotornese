@@ -18,6 +18,7 @@ function readEventFields(formData: FormData) {
     status: formData.get("cancelled") === "on" ? "annullato" : "programmato",
     description: String(formData.get("description") ?? "") || null,
     gallery_id: String(formData.get("gallery_id") ?? "") || null,
+    cover_image_position: String(formData.get("cover_image_position") ?? "") || null,
     published: formData.get("published") === "on",
   };
 }

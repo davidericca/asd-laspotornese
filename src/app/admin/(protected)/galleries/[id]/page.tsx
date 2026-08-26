@@ -1,6 +1,7 @@
 import { getAdminGalleryWithImages } from "@/lib/data/galleries";
-import { uploadImages, deleteImage, deleteGallery } from "@/actions/galleries";
+import { uploadImages, deleteImage, deleteGallery, updateGalleryCoverPosition } from "@/actions/galleries";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { ImageFocalPointPicker } from "@/components/admin/forms/ImageFocalPointPicker";
 import { fileInputClass } from "@/lib/ui";
 
 export default async function EditGalleryPage({
@@ -29,6 +30,26 @@ export default async function EditGalleryPage({
           Carica foto
         </SubmitButton>
       </form>
+
+      {gallery.cover_image_url && (
+        <form
+          action={updateGalleryCoverPosition.bind(null, id)}
+          className="mt-8 flex max-w-xs flex-col gap-3"
+        >
+          <p className="text-xs text-muted-foreground">
+            La copertina è la prima foto caricata. Regola qui quale parte resta visibile
+            quando viene ritagliata (home e pagina galleria).
+          </p>
+          <ImageFocalPointPicker
+            positionFieldName="cover_image_position"
+            currentImageUrl={gallery.cover_image_url}
+            currentPosition={gallery.cover_image_position}
+          />
+          <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
+            Salva inquadratura
+          </SubmitButton>
+        </form>
+      )}
 
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {images.map((image) => (

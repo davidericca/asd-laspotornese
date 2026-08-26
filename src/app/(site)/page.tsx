@@ -56,6 +56,7 @@ export default async function HomePage() {
   const hasHeroPhoto = Boolean(content.home_hero_image_url);
   const eventDate = nextEvent ? new Date(nextEvent.event_date) : null;
   const eventCancelled = nextEvent && getEventDisplayStatus(nextEvent) === "annullato";
+  const heroTitleLines = (content.home_hero_title || "ASD LA\nSPOTORNESE").split("\n");
 
   return (
     <div>
@@ -68,14 +69,18 @@ export default async function HomePage() {
               src={content.home_hero_image_url}
               alt=""
               className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: content.home_hero_image_position || "50% 50%" }}
             />
             <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,34,48,0.88)_0%,rgba(11,34,48,0.35)_32%,transparent_58%)]" />
           </>
         )}
         <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-end px-6 pb-10">
           <h1 className="font-heading text-[clamp(3rem,9vw,6rem)] leading-[0.94] font-extrabold text-primary-foreground text-wrap-balance">
-            <span className="block">ASD LA</span>
-            <span className="block text-accent">SPOTORNESE</span>
+            {heroTitleLines.map((line, i) => (
+              <span key={i} className={`block ${i === heroTitleLines.length - 1 ? "text-accent" : ""}`}>
+                {line}
+              </span>
+            ))}
           </h1>
           <p className="mt-3 max-w-md text-primary-foreground/85">
             {content.home_intro || "[INSERIRE presentazione breve dell'associazione]"}
@@ -197,6 +202,7 @@ export default async function HomePage() {
                   src={gallery.cover_image_url!}
                   alt={gallery.title}
                   className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                  style={{ objectPosition: gallery.cover_image_position || "50% 50%" }}
                 />
               </Link>
             ))}
@@ -268,6 +274,7 @@ function NewsPreviewCard({ item }: { item: NewsRow }) {
             src={item.cover_image_url}
             alt=""
             className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+            style={{ objectPosition: item.cover_image_position || "50% 50%" }}
           />
         </div>
       )}

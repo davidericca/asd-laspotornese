@@ -14,6 +14,7 @@ function readNewsFields(formData: FormData) {
     slug: slugify(title),
     body: String(formData.get("body") ?? ""),
     featured: formData.get("featured") === "on",
+    cover_image_position: String(formData.get("cover_image_position") ?? "") || null,
     published: formData.get("published") === "on",
   };
 }

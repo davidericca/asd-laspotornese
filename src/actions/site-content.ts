@@ -5,10 +5,12 @@ import { getServerSupabase } from "@/lib/supabase/server";
 import { SITE_CONTENT_KEYS } from "@/lib/data/site-content";
 import { uploadCoverImage } from "@/lib/storage/upload-cover-image";
 
+const HERO_IMAGE_KEYS = ["home_hero_image_url", "home_hero_image_position"];
+
 export async function updateSiteContent(formData: FormData) {
   const supabase = await getServerSupabase();
 
-  const rows = SITE_CONTENT_KEYS.filter((key) => key !== "home_hero_image_url").map((key) => ({
+  const rows = SITE_CONTENT_KEYS.filter((key) => !HERO_IMAGE_KEYS.includes(key)).map((key) => ({
     key,
     value: String(formData.get(key) ?? ""),
   }));
@@ -25,12 +27,21 @@ export async function updateSiteContent(formData: FormData) {
 export async function updateHeroImage(formData: FormData) {
   const supabase = await getServerSupabase();
 
+  const rows: { key: string; value: string }[] = [];
+
   const file = formData.get("hero_image");
   if (file instanceof File && file.size > 0) {
     const url = await uploadCoverImage(supabase, "site", "hero", file);
-    const { error } = await supabase
-      .from("site_content")
-      .upsert({ key: "home_hero_image_url", value: url }, { onConflict: "key" });
+    rows.push({ key: "home_hero_image_url", value: url });
+  }
+
+  const position = formData.get("home_hero_image_position");
+  if (typeof position === "string" && position) {
+    rows.push({ key: "home_hero_image_position", value: position });
+  }
+
+  if (rows.length > 0) {
+    const { error } = await supabase.from("site_content").upsert(rows, { onConflict: "key" });
     if (error) throw new Error(error.message);
   }
 

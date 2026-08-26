@@ -28,6 +28,7 @@ function NewsCard({ item }: { item: NewsRow }) {
             src={item.cover_image_url}
             alt=""
             className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+            style={{ objectPosition: item.cover_image_position || "50% 50%" }}
           />
         </div>
       )}

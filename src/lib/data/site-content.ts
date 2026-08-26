@@ -3,7 +3,9 @@ import { getServerSupabase } from "@/lib/supabase/server";
 
 export const SITE_CONTENT_KEYS = [
   "home_intro",
+  "home_hero_title",
   "home_hero_image_url",
+  "home_hero_image_position",
   "chi_siamo",
   "cf_piva",
   "contatti_indirizzo",

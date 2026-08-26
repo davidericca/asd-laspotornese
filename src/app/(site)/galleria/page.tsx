@@ -35,6 +35,7 @@ export default async function GalleriaPage() {
                     src={gallery.cover_image_url}
                     alt={gallery.title}
                     className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                    style={{ objectPosition: gallery.cover_image_position || "50% 50%" }}
                   />
                 )}
               </div>

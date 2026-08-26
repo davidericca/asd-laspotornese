@@ -94,6 +94,21 @@ export async function deleteGallery(id: string) {
   redirect("/admin/galleries");
 }
 
+export async function updateGalleryCoverPosition(galleryId: string, formData: FormData) {
+  const supabase = await getServerSupabase();
+  const position = String(formData.get("cover_image_position") ?? "") || null;
+
+  const { error } = await supabase
+    .from("galleries")
+    .update({ cover_image_position: position })
+    .eq("id", galleryId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/galleria");
+  revalidatePath(`/admin/galleries/${galleryId}`);
+  revalidatePath("/");
+}
+
 export async function uploadImages(galleryId: string, formData: FormData) {
   const supabase = await getServerSupabase();
   const files = formData

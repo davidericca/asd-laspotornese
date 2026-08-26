@@ -1,6 +1,7 @@
 import { getAdminSiteContent } from "@/lib/data/site-content";
 import { updateSiteContent, updateHeroImage } from "@/actions/site-content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { ImageFocalPointPicker } from "@/components/admin/forms/ImageFocalPointPicker";
 import { fileInputClass } from "@/lib/ui";
 
 const fieldClass =
@@ -24,23 +25,36 @@ export default async function AdminContentPage() {
           Scegli il file, poi premi &quot;Carica foto&quot; qui sotto: solo allora viene caricato davvero.
         </p>
         {content.home_hero_image_url && (
-          <div className="flex items-center gap-3">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={content.home_hero_image_url}
-              alt=""
-              className="h-16 w-28 shrink-0 object-cover"
-            />
-            <p className="text-xs text-muted-foreground">
-              Foto attuale. Caricandone una nuova la sostituirai.
-            </p>
-          </div>
+          <p className="-mt-1 text-xs text-muted-foreground">
+            Foto attuale. Caricandone una nuova la sostituirai.
+          </p>
         )}
+        <ImageFocalPointPicker
+          positionFieldName="home_hero_image_position"
+          fileFieldName="hero_image"
+          aspect="16 / 7"
+          currentImageUrl={content.home_hero_image_url || null}
+          currentPosition={content.home_hero_image_position || null}
+        />
         <SubmitButton className="self-start rounded-xs bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-hover">
           Carica foto
         </SubmitButton>
       </form>
       <form action={updateSiteContent} className="mt-10 flex max-w-lg flex-col gap-6">
+        <label className="flex flex-col gap-1 text-sm">
+          Home &mdash; titolo grande sopra la foto
+          <textarea
+            name="home_hero_title"
+            rows={2}
+            placeholder={"ASD LA\nSPOTORNESE"}
+            defaultValue={content.home_hero_title}
+            className={fieldClass}
+          />
+        </label>
+        <p className="-mt-4 text-xs text-muted-foreground">
+          Vai a capo per spezzare il titolo su più righe: l&apos;ultima riga viene mostrata in
+          arancione. Lascia vuoto per usare &quot;ASD La Spotornese&quot;.
+        </p>
         <label className="flex flex-col gap-1 text-sm">
           Home &mdash; presentazione
           <textarea

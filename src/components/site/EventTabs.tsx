@@ -29,6 +29,7 @@ function EventCard({ event }: { event: EventRow }) {
             src={event.cover_image_url}
             alt=""
             className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+            style={{ objectPosition: event.cover_image_position || "50% 50%" }}
           />
         </div>
       )}
