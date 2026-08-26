@@ -36,7 +36,7 @@
   --color-border: var(--border);
   --font-sans: var(--font-manrope);
   --font-heading: var(--font-manrope);
-  --font-mono: var(--font-space-mono);
+  --font-mono: var(--font-manrope);
 }
 
 body {

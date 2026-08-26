@@ -47,7 +47,7 @@ export const COLOR_LABELS: Record<TextColorKey, string> = {
 export const FONT_LABELS: Record<TextFontKey, string> = {
   titolo: "Manrope (titoli)",
   testo: "Manrope (testo)",
-  mono: "Space Mono (dati)",
+  mono: "Manrope (dati)",
 };
 
 export const HERO_SIZE_LABELS: Record<HeroTitleSizeKey, string> = {
