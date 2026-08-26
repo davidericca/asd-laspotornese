@@ -82,7 +82,7 @@ export default async function HomePage() {
               </span>
             ))}
           </h1>
-          <p className="mt-3 max-w-md text-primary-foreground/85">
+          <p className="mt-3 max-w-md whitespace-pre-line text-primary-foreground/85">
             {content.home_intro || "[INSERIRE presentazione breve dell'associazione]"}
           </p>
           <div className="mt-5">

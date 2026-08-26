@@ -2,15 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-type Remaining = { days: number; hours: number; minutes: number; seconds: number };
+type Remaining = { days: number; hours: number };
 
 function getRemaining(target: Date): Remaining {
   const diff = Math.max(0, target.getTime() - Date.now());
   return {
     days: Math.floor(diff / 86_400_000),
     hours: Math.floor((diff % 86_400_000) / 3_600_000),
-    minutes: Math.floor((diff % 3_600_000) / 60_000),
-    seconds: Math.floor((diff % 60_000) / 1_000),
   };
 }
 
@@ -40,14 +38,11 @@ export function EventCountdown({
     const target = new Date(`${eventDate}T${eventTime ?? "00:00"}`);
     const tick = () => setRemaining(getRemaining(target));
     tick();
-    const id = setInterval(tick, 1_000);
+    const id = setInterval(tick, 60_000);
     return () => clearInterval(id);
   }, [eventDate, eventTime]);
 
-  if (
-    !remaining ||
-    (remaining.days === 0 && remaining.hours === 0 && remaining.minutes === 0 && remaining.seconds === 0)
-  ) {
+  if (!remaining || (remaining.days === 0 && remaining.hours === 0)) {
     return null;
   }
 
@@ -55,8 +50,6 @@ export function EventCountdown({
     <div className="ml-auto flex gap-4">
       <Segment value={remaining.days} label="Giorni" />
       <Segment value={remaining.hours} label="Ore" />
-      <Segment value={remaining.minutes} label="Min" />
-      <Segment value={remaining.seconds} label="Sec" />
     </div>
   );
 }
