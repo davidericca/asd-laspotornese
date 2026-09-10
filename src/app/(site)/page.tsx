@@ -81,7 +81,7 @@ export default async function HomePage() {
       {/* Prossimo evento — fuso con l'hero */}
       {nextEvent && (
         <div className="bg-primary">
-          <NextEventCard event={nextEvent} className="mx-auto max-w-5xl px-6 py-7" showDetailsLink />
+          <NextEventCard event={nextEvent} className="mx-auto max-w-5xl px-6 py-6" showDetailsLink />
         </div>
       )}
 
