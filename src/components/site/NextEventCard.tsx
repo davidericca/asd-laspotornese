@@ -14,58 +14,61 @@ export function NextEventCard({
 }) {
   const eventDate = new Date(event.event_date);
   const cancelled = getEventDisplayStatus(event) === "annullato";
+  const hasPhoto = Boolean(event.cover_image_url);
 
   return (
-    <div className={`flex flex-wrap items-center gap-x-6 gap-y-4 ${className}`}>
-      <div className="flex items-center gap-5">
-        <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-7 py-4 text-center">
-          <div className="font-mono text-4xl leading-none font-bold text-primary-foreground">
-            {eventDate.getDate()}
+    <div className={`grid gap-8 ${hasPhoto ? "sm:grid-cols-2 sm:items-center" : ""} ${className}`}>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+        <div className="flex items-center gap-5">
+          <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-7 py-4 text-center">
+            <div className="font-mono text-4xl leading-none font-bold text-primary-foreground">
+              {eventDate.getDate()}
+            </div>
+            <div className="mt-1.5 font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
+              {eventDate.toLocaleDateString("it-IT", { month: "long" })}
+            </div>
+            <div className="font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
+              {eventDate.getFullYear()}
+            </div>
           </div>
-          <div className="mt-1.5 font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
-            {eventDate.toLocaleDateString("it-IT", { month: "long" })}
-          </div>
-          <div className="font-mono text-[10px] tracking-widest text-primary-foreground/55 uppercase">
-            {eventDate.getFullYear()}
+          <div className="min-w-0">
+            <p className="font-mono text-[10px] tracking-widest text-accent uppercase">Prossimo evento</p>
+            <div className="mt-0.5 flex flex-wrap items-center gap-2">
+              <Link
+                href={`/eventi/${event.slug}`}
+                className="font-heading text-lg font-bold text-primary-foreground hover:underline"
+              >
+                {event.title}
+              </Link>
+              {cancelled && <EventStatusBadge status="annullato" />}
+            </div>
+            {(event.event_time || event.location) && (
+              <p className="text-xs text-primary-foreground/55">
+                {event.location}
+                {event.event_time && event.location && " · "}
+                {event.event_time && `ore ${event.event_time.slice(0, 5)}`}
+              </p>
+            )}
+            {showDetailsLink && (
+              <Link href={`/eventi/${event.slug}`} className="inline-block text-xs font-bold text-accent">
+                Scopri i dettagli →
+              </Link>
+            )}
           </div>
         </div>
-        <div className="min-w-0">
-          <p className="font-mono text-[10px] tracking-widest text-accent uppercase">Prossimo evento</p>
-          <div className="mt-0.5 flex flex-wrap items-center gap-2">
-            <Link
-              href={`/eventi/${event.slug}`}
-              className="font-heading text-lg font-bold text-primary-foreground hover:underline"
-            >
-              {event.title}
-            </Link>
-            {cancelled && <EventStatusBadge status="annullato" />}
-          </div>
-          {(event.event_time || event.location) && (
-            <p className="text-xs text-primary-foreground/55">
-              {event.location}
-              {event.event_time && event.location && " · "}
-              {event.event_time && `ore ${event.event_time.slice(0, 5)}`}
-            </p>
-          )}
-          {showDetailsLink && (
-            <Link href={`/eventi/${event.slug}`} className="inline-block text-xs font-bold text-accent">
-              Scopri i dettagli →
-            </Link>
-          )}
-        </div>
+        <EventCountdown eventDate={event.event_date} eventTime={event.event_time} />
       </div>
-      {event.cover_image_url && (
-        <div className="h-20 w-32 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-40">
+      {hasPhoto && (
+        <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl sm:aspect-[16/11]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={event.cover_image_url}
+            src={event.cover_image_url!}
             alt=""
             className="h-full w-full object-cover"
             style={{ objectPosition: event.cover_image_position || "50% 50%" }}
           />
         </div>
       )}
-      <EventCountdown eventDate={event.event_date} eventTime={event.event_time} />
     </div>
   );
 }
