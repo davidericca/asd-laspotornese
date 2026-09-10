@@ -27,7 +27,7 @@ export default async function EventiPage() {
         description="Tutte le gare e le uscite organizzate dall'associazione."
       />
       <div className="mx-auto max-w-5xl px-6 py-16">
-        {nextEvent && <NextEventCard event={nextEvent} className="mb-12 rounded-lg bg-primary p-8" />}
+        {nextEvent && <NextEventCard event={nextEvent} className="mb-12 rounded-lg bg-primary p-6" />}
         <EventTabs upcoming={upcoming} past={past} />
       </div>
     </>
