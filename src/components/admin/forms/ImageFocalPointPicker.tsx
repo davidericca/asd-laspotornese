@@ -178,59 +178,67 @@ export function ImageFocalPointPicker({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pan, zoom, natural, fileFieldName]);
 
-  if (!sourceUrl) return null;
-
+  // Il wrapper si monta sempre, anche senza foto: l'effetto qui sopra deve
+  // poter trovare subito il <form> che lo contiene per agganciare l'ascolto
+  // sull'input file. Se questo div si montasse solo dopo aver scelto una
+  // foto (return null prima), l'effetto non troverebbe mai il form la
+  // prima volta e la scelta di una foto nuova non avrebbe mai effetto —
+  // esattamente il bug per cui "la foto nelle attivita' non funziona".
   return (
     <div ref={wrapRef} className="flex flex-col gap-2">
-      <p className="text-sm">
-        Inquadratura{" "}
-        <span className="text-xs text-muted-foreground">
-          — trascina la foto per spostarla, usa lo zoom per ingrandire
-        </span>
-      </p>
-      <div
-        className="relative touch-none overflow-hidden rounded border border-border bg-muted select-none"
-        style={{ width: frameW, height: frameH, cursor: natural ? "move" : "default" }}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          ref={imgRef}
-          src={sourceUrl}
-          alt=""
-          draggable={false}
-          onLoad={onImageLoad}
-          className="pointer-events-none absolute top-0 left-0 max-w-none"
-          style={{
-            width: natural ? renderedW : undefined,
-            height: natural ? renderedH : undefined,
-            transform: `translate(${pan.x}px, ${pan.y}px)`,
-            visibility: natural ? "visible" : "hidden",
-          }}
-        />
-      </div>
-      <div className="flex max-w-xs items-center gap-2">
-        <MagnifyingGlassMinus size={16} className="shrink-0 text-muted-foreground" aria-hidden="true" />
-        <input
-          type="range"
-          min={1}
-          max={3}
-          step={0.01}
-          value={zoom}
-          onChange={(e) => changeZoom(parseFloat(e.target.value))}
-          className="w-full"
-          aria-label="Zoom"
-        />
-        <MagnifyingGlassPlus size={16} className="shrink-0 text-muted-foreground" aria-hidden="true" />
-      </div>
-      <input
-        type="hidden"
-        name={positionFieldName}
-        value={touched ? "50% 50%" : (currentPosition ?? "50% 50%")}
-      />
+      {sourceUrl && (
+        <>
+          <p className="text-sm">
+            Inquadratura{" "}
+            <span className="text-xs text-muted-foreground">
+              — trascina la foto per spostarla, usa lo zoom per ingrandire
+            </span>
+          </p>
+          <div
+            className="relative touch-none overflow-hidden rounded border border-border bg-muted select-none"
+            style={{ width: frameW, height: frameH, cursor: natural ? "move" : "default" }}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              ref={imgRef}
+              src={sourceUrl}
+              alt=""
+              draggable={false}
+              onLoad={onImageLoad}
+              className="pointer-events-none absolute top-0 left-0 max-w-none"
+              style={{
+                width: natural ? renderedW : undefined,
+                height: natural ? renderedH : undefined,
+                transform: `translate(${pan.x}px, ${pan.y}px)`,
+                visibility: natural ? "visible" : "hidden",
+              }}
+            />
+          </div>
+          <div className="flex max-w-xs items-center gap-2">
+            <MagnifyingGlassMinus size={16} className="shrink-0 text-muted-foreground" aria-hidden="true" />
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.01}
+              value={zoom}
+              onChange={(e) => changeZoom(parseFloat(e.target.value))}
+              className="w-full"
+              aria-label="Zoom"
+            />
+            <MagnifyingGlassPlus size={16} className="shrink-0 text-muted-foreground" aria-hidden="true" />
+          </div>
+          <input
+            type="hidden"
+            name={positionFieldName}
+            value={touched ? "50% 50%" : (currentPosition ?? "50% 50%")}
+          />
+        </>
+      )}
     </div>
   );
 }
