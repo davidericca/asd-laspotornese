@@ -116,18 +116,18 @@ export default async function HomePage() {
 
       {/* Galleria */}
       {galleryPreview.length > 0 && (
-        <div className="bg-primary py-14">
+        <div className="bg-primary-tint py-14">
           <div className="mx-auto max-w-5xl px-6">
             <div className="flex items-baseline justify-between gap-4">
               <div>
                 <p className="font-mono text-xs font-bold tracking-widest text-accent uppercase">
                   Galleria
                 </p>
-                <h2 className="mt-2 font-heading text-2xl font-bold text-primary-foreground uppercase sm:text-3xl">
+                <h2 className="mt-2 font-heading text-2xl font-bold text-foreground uppercase sm:text-3xl">
                   I nostri momenti
                 </h2>
               </div>
-              <Link href="/galleria" className="text-sm font-bold whitespace-nowrap text-accent">
+              <Link href="/galleria" className="text-sm font-bold whitespace-nowrap text-primary hover:underline">
                 Vedi tutta la galleria →
               </Link>
             </div>
