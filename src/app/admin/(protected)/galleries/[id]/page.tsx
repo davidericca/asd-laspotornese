@@ -5,6 +5,8 @@ import {
   deleteGallery,
   updateGallery,
   updateGalleryCoverPosition,
+  setGalleryCover,
+  moveImage,
 } from "@/actions/galleries";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { ImageFocalPointPicker } from "@/components/admin/forms/ImageFocalPointPicker";
@@ -66,8 +68,8 @@ export default async function EditGalleryPage({
           className="mt-8 flex max-w-xs flex-col gap-3"
         >
           <p className="text-xs text-muted-foreground">
-            La copertina è la prima foto caricata. Regola qui quale parte resta visibile
-            quando viene ritagliata (home e pagina galleria).
+            Scegli la copertina sotto una delle foto qui sotto. Qui invece regoli quale
+            parte resta visibile quando viene ritagliata (home e pagina galleria).
           </p>
           <ImageFocalPointPicker
             positionFieldName="cover_image_position"
@@ -81,23 +83,61 @@ export default async function EditGalleryPage({
       )}
 
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-        {images.map((image) => (
-          <div key={image.id} className="flex flex-col gap-2">
-            <div className="aspect-square w-full overflow-hidden border border-border bg-muted">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={image.url}
-                alt={image.alt_text ?? ""}
-                className="h-full w-full object-contain"
-              />
+        {images.map((image, index) => {
+          const isCover = image.url === gallery.cover_image_url;
+          return (
+            <div key={image.id} className="flex flex-col gap-2">
+              <div className="aspect-square w-full overflow-hidden border border-border bg-muted">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={image.url}
+                  alt={image.alt_text ?? ""}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <div className="flex items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2">
+                  <form action={moveImage.bind(null, id, image.id, "up")}>
+                    <button
+                      type="submit"
+                      disabled={index === 0}
+                      aria-label="Sposta prima"
+                      className="block leading-none disabled:opacity-20"
+                    >
+                      ◀
+                    </button>
+                  </form>
+                  <form action={moveImage.bind(null, id, image.id, "down")}>
+                    <button
+                      type="submit"
+                      disabled={index === images.length - 1}
+                      aria-label="Sposta dopo"
+                      className="block leading-none disabled:opacity-20"
+                    >
+                      ▶
+                    </button>
+                  </form>
+                </div>
+                <form action={deleteImage.bind(null, id, image.id, image.url)}>
+                  <SubmitButton className="text-red-600 hover:underline">
+                    Elimina
+                  </SubmitButton>
+                </form>
+              </div>
+              {isCover ? (
+                <span className="rounded-xs bg-muted px-2 py-1 text-center text-xs font-medium text-primary">
+                  Copertina attuale
+                </span>
+              ) : (
+                <form action={setGalleryCover.bind(null, id, image.url)}>
+                  <SubmitButton className="w-full rounded-xs border border-border px-2 py-1 text-xs transition-colors hover:border-primary hover:text-primary">
+                    Imposta come copertina
+                  </SubmitButton>
+                </form>
+              )}
             </div>
-            <form action={deleteImage.bind(null, id, image.id, image.url)}>
-              <SubmitButton className="text-xs text-red-600 hover:underline">
-                Elimina
-              </SubmitButton>
-            </form>
-          </div>
-        ))}
+          );
+        })}
       </div>
       {images.length === 0 && (
         <p className="mt-8 text-muted-foreground">

@@ -127,6 +127,49 @@ export async function updateGalleryCoverPosition(galleryId: string, formData: Fo
   revalidatePath("/");
 }
 
+export async function setGalleryCover(galleryId: string, imageUrl: string) {
+  const supabase = await getServerSupabase();
+
+  // Nuova copertina: azzera anche l'inquadratura salvata, perche' era
+  // pensata per la foto precedente e non ha senso riapplicarla a un'altra.
+  const { error } = await supabase
+    .from("galleries")
+    .update({ cover_image_url: imageUrl, cover_image_position: null })
+    .eq("id", galleryId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/galleria");
+  revalidatePath(`/galleria/${galleryId}`);
+  revalidatePath(`/admin/galleries/${galleryId}`);
+  revalidatePath("/");
+}
+
+export async function moveImage(galleryId: string, imageId: string, direction: "up" | "down") {
+  const supabase = await getServerSupabase();
+  const { data: images, error } = await supabase
+    .from("images")
+    .select("id, position")
+    .eq("gallery_id", galleryId)
+    .order("position", { ascending: true });
+  if (error) throw new Error(error.message);
+
+  const index = images.findIndex((image) => image.id === imageId);
+  const swapIndex = direction === "up" ? index - 1 : index + 1;
+  if (index === -1 || swapIndex < 0 || swapIndex >= images.length) return;
+
+  const current = images[index];
+  const swapWith = images[swapIndex];
+
+  await Promise.all([
+    supabase.from("images").update({ position: swapWith.position }).eq("id", current.id),
+    supabase.from("images").update({ position: current.position }).eq("id", swapWith.id),
+  ]);
+
+  revalidatePath("/galleria");
+  revalidatePath(`/galleria/${galleryId}`);
+  revalidatePath(`/admin/galleries/${galleryId}`);
+}
+
 export async function uploadImages(galleryId: string, formData: FormData) {
   const supabase = await getServerSupabase();
   const files = formData
