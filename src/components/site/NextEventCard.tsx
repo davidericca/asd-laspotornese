@@ -16,7 +16,7 @@ export function NextEventCard({
   const cancelled = getEventDisplayStatus(event) === "annullato";
 
   return (
-    <div className={`flex flex-wrap items-center gap-y-4 ${className}`}>
+    <div className={`flex flex-wrap items-center gap-x-6 gap-y-4 ${className}`}>
       <div className="flex items-center gap-5">
         <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-7 py-4 text-center">
           <div className="font-mono text-4xl leading-none font-bold text-primary-foreground">
@@ -54,6 +54,17 @@ export function NextEventCard({
           )}
         </div>
       </div>
+      {event.cover_image_url && (
+        <div className="h-20 w-32 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-40">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={event.cover_image_url}
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ objectPosition: event.cover_image_position || "50% 50%" }}
+          />
+        </div>
+      )}
       <EventCountdown eventDate={event.event_date} eventTime={event.event_time} />
     </div>
   );
