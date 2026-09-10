@@ -17,7 +17,7 @@ export function NextEventCard({
   const hasPhoto = Boolean(event.cover_image_url);
 
   return (
-    <div className={`grid gap-8 ${hasPhoto ? "sm:grid-cols-2 sm:items-center" : ""} ${className}`}>
+    <div className={`grid gap-6 ${hasPhoto ? "sm:grid-cols-[1fr_auto] sm:items-center" : ""} ${className}`}>
       <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
         <div className="flex items-center gap-5">
           <div className="shrink-0 rounded-xl border border-primary-foreground/25 px-7 py-4 text-center">
@@ -59,7 +59,7 @@ export function NextEventCard({
         <EventCountdown eventDate={event.event_date} eventTime={event.event_time} />
       </div>
       {hasPhoto && (
-        <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl sm:aspect-[16/11]">
+        <div className="aspect-[16/10] w-full overflow-hidden rounded-2xl sm:w-64 md:w-72">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={event.cover_image_url!}
